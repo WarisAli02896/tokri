@@ -1,6 +1,7 @@
 
 
 exports.sampleFunction = (req, res) => {
+    console.log("New code");
     try{
         require("../models/auth/users");
         return res.status(200).json({
