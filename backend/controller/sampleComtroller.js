@@ -10,6 +10,7 @@ exports.sampleFunction = (req, res) => {
                 message: "Sample function is working"
             }
         })
+        console.log("hjvfhygyu");
     }catch(error){
         return res.status(404).json({
             data:{
@@ -17,5 +18,6 @@ exports.sampleFunction = (req, res) => {
                 
             }
         })
+        console.log("vcdxdse");
     }
 }
