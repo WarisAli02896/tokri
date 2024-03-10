@@ -1,8 +1,7 @@
 
 
 exports.sampleFunction = (req, res) => {
-   console.log("hello");
-    console.log("New code");
+   console.log("New Line 1")
     try{
         require("../models/auth/users");
         return res.status(200).json({
@@ -10,6 +9,7 @@ exports.sampleFunction = (req, res) => {
                 message: "Sample function is working"
             }
         })
+        console.log("New Line 3")
         console.log("hjvfhygyu");
     }catch(error){
         return res.status(404).json({
@@ -18,6 +18,7 @@ exports.sampleFunction = (req, res) => {
                 
             }
         })
+        console.log("new Line 3")
         console.log("vcdxdse");
     }
 }
