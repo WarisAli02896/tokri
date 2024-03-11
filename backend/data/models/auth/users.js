@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { seq } = require('../../../utils/sequlize');
+const { seq } = require("../../../utils/sequlize");
 const MailSync = require("./mailSync");
+const Shops = require("./../shops/shops");
 
 const Users = seq.define('Users', {
     user_id: {
@@ -142,6 +143,7 @@ const Users = seq.define('Users', {
 Users.sync({
     alter: false
 });
+
 Users.hasMany(
     MailSync,
     {
@@ -149,5 +151,13 @@ Users.hasMany(
         foreignKey: 'user_id'
     }
 );
+
+Users.hasMany(
+    Shops,
+    {
+        as: 'shops',
+        foreignKey: 'user_id'
+    }
+)
 
 module.exports = Users;
