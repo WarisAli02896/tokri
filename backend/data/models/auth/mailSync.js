@@ -27,11 +27,8 @@ const MailSync = seq.define('MailSync', {
         createdAt: true,
         updatedAt: true,
         tableName: 'mailSync'
-    });
-
-MailSync.sync({
-    alter: false
-})
+    }
+);
 
 // MailSync.hasMany(Users, {
 //     foreignKey:{

@@ -140,10 +140,6 @@ const Users = seq.define('Users', {
     }
 });
 
-Users.sync({
-    alter: false
-});
-
 Users.hasMany(
     MailSync,
     {
