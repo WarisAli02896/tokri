@@ -5,7 +5,7 @@ const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const { email_verification_body } = require('../../../data/objects/mail/mailBody');
 const { _sendMail } = require('../../../utils/send_email');
 const MailSync = require('../../../data/models/auth/mailSync');
-exports.register_Shop = async (req, res) => {
+exports.register_User = async (req, res) => {
     const reqData = req.body;
 
     if (reqData.password == reqData.confirmPassword) {
