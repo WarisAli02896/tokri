@@ -30,14 +30,14 @@ const Shops = seq.define('Shops', {
             }
         }
     },
-    Area:{
+    area:{
         type:DataTypes.STRING,
         allowNull: false,
         notNull:{
             msg:"Area name not provided"
         }
     },
-    Address:{
+    address:{
         type:DataTypes.STRING,
         allowNull: false,
         notNull:{

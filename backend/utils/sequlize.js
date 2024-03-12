@@ -11,7 +11,7 @@ try{
     seq.authenticate();
     console.log(`Server connected to DB ${process.env.DATABASE_NAME} on port no ${process.env.DATABASE_PORT}`);
     seq.sync({
-        force: true
+        force: false
     })
 }catch(error){
     console.log(`connection Failed with database/n${error}`)

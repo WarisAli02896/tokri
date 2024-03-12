@@ -19,6 +19,12 @@ exports.login = async (req, res) => {
                 if (await bcrypt.compare(reqData.password, data.dataValues.password)) {
                     try {
                         data.dataValues.token = await jwtToken(merge_objects(jwtPayload, data.dataValues));
+                        return res.status(StatusCodes.OK).json({
+                            data:{
+                                responseMessage:"User logged in",
+                                User: data.dataValues
+                            }
+                        })
                     }
                     catch (error) {
                         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
