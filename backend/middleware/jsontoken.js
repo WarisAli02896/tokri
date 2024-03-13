@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
 
 exports.jwtToken = (value) => {
@@ -6,7 +7,7 @@ exports.jwtToken = (value) => {
             user_id: value.user_id,
             name: `${value.firstname} ${value.lastname}`,
             email: value.email,
-            type:value.type,
+            type: value.type,
             verified: value.verified
         };
 
@@ -15,13 +16,13 @@ exports.jwtToken = (value) => {
         let options = {
             expiresIn: '1y',
             issuer: process.env.BASE_URL,
-            audience: options.value.id
+            audience: `${value.user_id}`
         }
 
         jwt.sign(payload, secret, options, (error, token) => {
-            if (error){
-                throw reject(error);
-            } else if (token){
+            if (error) {
+                reject(error);
+            } else if (token) {
                 resolve(token);
             }
         })
@@ -30,29 +31,27 @@ exports.jwtToken = (value) => {
 
 exports.verifyAccessToken = (req, res, next) => {
     if (!req.headers['authorization']) {
-        return res.status(createError.Unauthorized().statusCode).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
             error: {
-                status: createError.Unauthorized().statusCode,
-                errorMessage: createError.Unauthorized("User not authorized")
+                status: StatusCodes.UNAUTHORIZED,
+                errorMessage: "Authorization token missing"
             }
         });
     } else if (req.headers['authorization']) {
-        let token = req.headers['authorization'];
-        if (token.slice(0, 1) == "\"") {
-            token = token.slice(1, token.length).slice(0, token.length - 2)
-        }
+        let token = req.headers['authorization'].split(" ");
+        // token = token.split(" ");
         // const token = baererToken[1];
-        JWT.verify(token, process.env.SESSION_SECRET, (err, result) => {
+        jwt.verify(token[1], process.env.SESSION_SECRET, (err, result) => {
             if (err) {
-                return res.status(err.status || createError.Unauthorized().statusCode).json({
+                return res.status(err.status || StatusCodes.UNAUTHORIZED).json({
                     error: {
                         err,
-                        status: err.status || createError.Unauthorized().statusCode,
-                        errorMessage: createError.Unauthorized("User not authorized")
+                        status: err.status || StatusCodes.UNAUTHORIZED,
+                        errorMessage: "User not authorized"
                     }
                 });
             } else if (result) {
-                const _token = JWT.verify(token, process.env.SESSION_SECRET);
+                const _token = jwt.verify(token[1], process.env.SESSION_SECRET);
                 req.body.User = _token;
                 next();
             }
