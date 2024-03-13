@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 var bodyParser = require('body-parser');
+const route = require('./route/route');
 const port = process.env.SERVER_PORT
 
 //Database connection
@@ -12,11 +13,10 @@ const app = express()
 //Plugins for express routing
 app.use(bodyParser.json());
 
-//Defining routes
-const auth = require('./route/auth')
-//Seeting up routes
+//Setting up routes
 app.use('/fyp',
-    auth
+    route.auth,
+    route.shops
 )
 
 //Initiate Application on port 3000

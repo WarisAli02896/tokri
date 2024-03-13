@@ -83,3 +83,16 @@ exports.verify_user = (req, res) => {
             })
         })
 }
+
+exports.validate_User_for_Shop = (req, res, next) => {
+    const reqData = req.body;
+    if (req.body.User.type == "Shop Keeper") {
+        next();
+    } else {
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            data:{
+                errorMessage:"Only shop keeper is allowed to create shop"
+            }
+        })
+    }
+}
