@@ -5,7 +5,7 @@ const { login } = require("../../controller/auth/user/login");
 const router = express.Router();
 
 router.post("/user/register", register_User);
-router.put("/user/verifyUser", verify_user);
+router.put("/user/verify", verify_user);
 router.post("/user/login", login);
 
 module.exports = router;

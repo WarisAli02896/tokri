@@ -8,5 +8,6 @@ const router = express.Router();
 router.post("/shop/register", verifyAccessToken, validate_User_for_Shop, registerShop);
 router.get("/user/shops", verifyAccessToken, validate_User_for_Shop, get_Shop_By_User_Id);
 router.get("/user/shops/shop", verifyAccessToken, validate_User_for_Shop, get_shop_by_id);
+router.put("/shops/verify",)
 
 module.exports = router;
