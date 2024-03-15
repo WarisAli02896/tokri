@@ -12,29 +12,6 @@ exports.register_User = async (req, res) => {
         reqData.password = await bcrypt.hashSync(reqData.password, await bcrypt.genSaltSync(parseInt(process.env.SALT)));
 
         let user_id;
-        // let userRecord = await Users.findAll(
-        //     {
-        //         limit: 1,
-        //         order: [
-        //             [
-        //                 'user_id', 'DESC'
-        //             ]
-        //         ]
-        //     }
-        // )
-        //     .then((userRecord) => {
-        //         user_id = create_user_id(userRecord, reqData);
-        //     })
-        //     .catch((err) => {
-        //         return res.status(err.status || 500).json({
-        //             data: {
-        //                 error: {
-        //                     errorMessage: "Account not created. Please try again",
-        //                     err: err
-        //                 }
-        //             }
-        //         })
-        //     });
 
         let data = await Users.findOrCreate({
             where: {
