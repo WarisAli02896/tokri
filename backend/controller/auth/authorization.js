@@ -173,5 +173,7 @@ exports.validate_User_for_Shop = (req, res, next) => {
                 errorMessage:"Only shop keeper is allowed to create shop"
             }
         })
+
     }
 }
+
