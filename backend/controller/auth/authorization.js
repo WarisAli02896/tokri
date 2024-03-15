@@ -1,5 +1,6 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const Users = require("../../data/models/auth/users");
+const Shops = require("../../data/models/shops/shops");
 
 exports.verify_user = (req, res) => {
     const reqData = req.query;
@@ -85,10 +86,10 @@ exports.verify_user = (req, res) => {
 }
 
 //api for varify update querry
-exports.varify_shop = async (req, res) => {
+exports.verify_shop = async (req, res) => {
     const reqData = req.query;
 
-    await Shops.findone({
+    await Shops.findOne({
         where: {
             shop_id: reqData.id,
         },
