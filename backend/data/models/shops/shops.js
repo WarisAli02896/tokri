@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { seq } = require("../../../utils/sequlize");
+const Products = require("../products/products");
 
 const Shops = seq.define('Shops', {
     shop_id: {
@@ -61,5 +62,13 @@ const Shops = seq.define('Shops', {
 
     }
 });
+
+Shops.hasMany(
+    Products,{
+        as: 'products',
+        foreignKey: 'shopId'
+    }
+)
+
 
 module.exports = Shops;

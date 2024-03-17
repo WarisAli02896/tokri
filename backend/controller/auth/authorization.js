@@ -95,8 +95,8 @@ exports.verify_shop = async (req, res) => {
         },
     })
         .then(async (shop) => {
-            if (shop.length >= 1) {
-                if (shop[0].verified == 0 || shop[0].verified == false) {
+            if (shop!= null) {
+                if (shop.dataValues.verified == 0 || shop.dataValues.verified == false) {
                     await Shops.update(
                         {
                             verified: true,
@@ -136,14 +136,14 @@ exports.verify_shop = async (req, res) => {
                                 },
                             });
                         });
-                } else if (shop[0].verified == 1 || shop[0].verified == true) {
+                } else if (shop.dataValues.verified == 1 || shop.dataValues.verified == true) {
                     return res.status(StatusCodes.OK).json({
                         data: {
                             message: "Its Already true",
                         },
                     });
                 }
-            } else if (shop.length == 0 || shop.length == null) {
+            } else if (shop == null ) {
                 return res.status(StatusCodes.OK).json({
                     data: {
                         message: "No Records found to update",
