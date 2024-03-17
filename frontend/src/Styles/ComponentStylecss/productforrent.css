@@ -1,0 +1,93 @@
+/* productforrent.css */
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.product-form {
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.size-checbox,
+.rent-checkbox {
+  margin-bottom: 20px;
+}
+
+.size-checkbox-label,
+.rent-checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.size-checkbox-label input,
+.rent-checkbox-label input {
+  margin-right: 5px;
+}
+
+.uploaded-pictures img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 10px;
+}
+
+textarea,
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .size-checkbox-label,
+  .rent-checkbox-label {
+    margin-right: 0;
+  }
+
+  .size-checkbox,
+  .rent-checkbox {
+    margin-bottom: 15px;
+  }
+}

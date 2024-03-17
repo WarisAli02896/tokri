@@ -1,0 +1,32 @@
+/* InputField.css */
+
+/* Container for the input field */
+.input-field-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Label styling */
+  .input-field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Input field styling */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Input field focus styling */
+  .input-field:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  

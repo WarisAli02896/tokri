@@ -1,0 +1,32 @@
+/* Assuming 'shopformpage' is the main container class */
+.shopformpage {
+  /* Add general styles for the main container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed */
+}
+
+/* Assuming 'buttons' is the class for the container that wraps ReusableButtons */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Adjust as needed */
+  color: rgb(252, 248, 248);
+  padding: 20px 60px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  font-weight: bold;
+}
+  
+  /* Add additional styles for responsiveness if needed */
+  @media (max-width: 768px) {
+    /* Styles for screens with a maximum width of 768px (adjust as needed) */
+    .shopformpage {
+      padding: 20px; /* Add some padding for smaller screens */
+    }
+  }
+  

@@ -1,0 +1,13 @@
+
+  [
+    { "id": 1, "name": "gul sanober", "Email":"gulsanober4353@gmail.com" ,"OwnerName":"gul sanober " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
+    { "id": 2, "name": "fiza", "Email": "fiza53@gmail.com" ,"OwnerName":"fiza " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit" },
+    { "id": 3, "name": "habiba", "Email": "habiba13@gmail.com" ,"OwnerName":"habiba  " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
+    { "id": 4, "name": "sano", "Email": "sano353@gmail.com" ,"OwnerName":"sano " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
+    { "id": 5, "name": "gul", "Email": "gul3@gmail.com" ,"OwnerName":"gul " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit" },
+    { "id": 6, "name": "falak", "Email": "falak4353@gmail.com" ,"OwnerName":"falak " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
+    { "id": 7, "name": "hina", "Email":"hina3@gmail.com" ,"OwnerName":"hina " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
+    { "id": 8, "name": "sana", "Email":"sana3@gmail.com","OwnerName":"sana " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"}
+  ]
+
+  
