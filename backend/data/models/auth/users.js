@@ -155,5 +155,11 @@ Users.hasMany(
         foreignKey: 'user_id'
     }
 )
-
+Users.hasMany(
+    ProductReviews,
+    {
+        as: 'productreview',
+        foreignKey: 'user_id'
+    }
+)
 module.exports = Users;
