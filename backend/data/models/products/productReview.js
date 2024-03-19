@@ -1,5 +1,7 @@
 const { DataTypes, ForeignKeyConstraintError, Model } = require("sequelize");
 const { seq } = require("../../../utils/sequlize");
+const Products = require("./products");
+const Users = require("../auth/users");
 
 const ProductReview = seq.define('ProductReview', {
     
@@ -15,16 +17,19 @@ const ProductReview = seq.define('ProductReview', {
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull:false,
+        allowNull:true
     },
-    rating: {
+    shop_keeper_id:{
         type: DataTypes.INTEGER,
+        allowNull: true
     },
     comments:{
         type: DataTypes.STRING,
+        allowNull: false
     },
-    Description:{
-        type:DataTypes.STRING
+    parent_review_id:{
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 },{
     timestamps: true,
@@ -33,4 +38,19 @@ const ProductReview = seq.define('ProductReview', {
     tableName: "ProductReview",
 });
 
-Model.exports = ProductReview;
+ProductReview.belongsTo(
+    Products,{
+        as:'product_review',
+        foreignKey:'product_id'
+    }
+);
+
+ProductReview.belongsTo(
+    Users, {
+        as: 'user_review',
+        foreignKey: 'user_id',
+        allowNull: true
+    }
+);
+
+module.exports = ProductReview;

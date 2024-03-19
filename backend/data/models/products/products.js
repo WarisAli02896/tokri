@@ -1,12 +1,11 @@
 const { DataTypes, ForeignKeyConstraintError } = require("sequelize");
 const { seq } = require("../../../utils/sequlize");
-const ProductCategory = require("./productCategory");
-const ProductVariation = require("./productValriation");
+const ProductVariation = require("./productValriants");
 const ProductImage = require("./productImage");
 
 const Products = seq.define('Products', {
     
-    poduct_id:{
+    product_id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -16,6 +15,11 @@ const Products = seq.define('Products', {
         type: DataTypes.INTEGER,
         allowNull:false,
     },
+    barcode:{
+        type: DataTypes.STRING,
+        allowNull:false,
+        unique: true,
+    },
     name:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,11 +28,6 @@ const Products = seq.define('Products', {
                 msg:"Product name can not be null",
             }
         }
-    },
-    barcode:{
-        type: DataTypes.STRING,
-        allowNull:false,
-        unique: true,
     },
     Description:{
         type:DataTypes.STRING
@@ -40,31 +39,18 @@ const Products = seq.define('Products', {
     tableName: "products",
 });
 
-Products.hasOne(
-    ProductCategory,{
-        as: 'productCategory',
-        foreignKey: 'product_id'
-    }
-)
-
 Products.hasMany(
     ProductVariation,{
-        as:'productvariation',
+        as:'productvariantion',
         foreignKey: 'product_id'
     }
-)
+);
 
 Products.hasMany(
     ProductImage,{
         as:'productImage',
         foreignKey: 'product_id'
     }
-)
-Products.hasMany(
-    ProductReview,{
-        as:'productreview',
-        foreignKey: 'product_id'
-    }
-)
+);
 
 module.exports = Products;

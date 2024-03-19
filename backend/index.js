@@ -6,6 +6,7 @@ const port = process.env.SERVER_PORT
 
 //Database connection
 // require('./utils/sequlize');
+require('./middleware/loadModels')
 
 //Object for Express Class
 const app = express()

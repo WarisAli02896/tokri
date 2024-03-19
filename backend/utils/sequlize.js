@@ -7,13 +7,12 @@ const seq = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNA
     port: process.env.DATABASE_PORT
 });
 
-try{
+try {
     seq.authenticate();
-    console.log(`Server connected to DB ${process.env.DATABASE_NAME} on port no ${process.env.DATABASE_PORT}`);
     seq.sync({
-        force: false
+        alter: true
     })
-}catch(error){
+} catch (error) {
     console.log(`connection Failed with database/n${error}`)
 }
 

@@ -1,9 +1,9 @@
 const { DataTypes, ForeignKeyConstraintError } = require("sequelize");
 const { seq } = require("../../../utils/sequlize");
 
-const ProductVariation = seq.define('ProductVariation', {
+const ProductVariants = seq.define('ProductVariation', {
     
-    variation_id:{
+    variant_id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -21,11 +21,17 @@ const ProductVariation = seq.define('ProductVariation', {
         type: DataTypes.STRING,
         allowNull:false,
     },
+    quantity:{
+        type: DataTypes.STRING
+    },
+    color:{
+        type:DataTypes.JSON,
+    }
 },{
     timestamps: true,
     createdAt: true,
     updatedAt: true,
-    tableName: "ProductVariation",
+    tableName: "productVariation",
 });
 
-module.exports = ProductVariation;
+module.exports = ProductVariants;
