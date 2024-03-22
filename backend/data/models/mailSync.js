@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
-const { seq } = require('../../../utils/sequlize');
-const Users = require('./users');
+const { seq } = require('../../utils/sequlize');
+const Users = require('./customer/auth/users');
 
 const MailSync = seq.define('MailSync', {
     mail_id: {

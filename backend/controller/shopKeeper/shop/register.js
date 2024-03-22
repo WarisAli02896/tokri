@@ -1,8 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
-const Shops = require("../../../data/models/shops/shops");
-const Users = require("../../../data/models/auth/users");
+const Shops = require("../../../data/models/shopKeeper/shop/shops");
+const Users = require("../../../data/models/customer/auth/users");
 const { merge_objects } = require("../../../middleware/common");
-var { shops } = require("../../../data/objects/auth/shop");
+var { shops } = require("../../../data/objects/shopKeeper/shop/shop");
 
 exports.registerShop = async (req, res) => {
     const reqData = req.body;

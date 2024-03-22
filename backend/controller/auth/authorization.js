@@ -1,6 +1,6 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
-const Users = require("../../data/models/auth/users");
-const Shops = require("../../data/models/shops/shops");
+const Users = require("../../data/models/customer/auth/users");
+const Shops = require("../../data/models/shopKeeper/shop/shops");
 
 exports.verify_user = (req, res) => {
     const reqData = req.query;

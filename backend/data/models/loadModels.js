@@ -1,11 +1,11 @@
-require('./auth/users');
-require('./auth/mailSync');
+require('./customer/auth/users');
+require('./mailSync');
 
-require('./shops/shops');
+require('./shopKeeper/shop/shops');
 
-require('./products/products');
-require('./products/productValriants');
-require('./products/productCategory');
-require('./products/productCategoryMapping');
-require('./products/productImage');
-require('./products/productReview');
+require('./shopKeeper/products/products');
+require('./shopKeeper/products/productValriants');
+require('./shopKeeper/products/productCategory');
+require('./shopKeeper/products/productCategoryMapping');
+require('./shopKeeper/products/productImage');
+require('./shopKeeper/products/productReview');

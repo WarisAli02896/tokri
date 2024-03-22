@@ -1,10 +1,9 @@
 const bcrypt = require('bcryptjs');
-const Users = require('../../../data/models/auth/users');
-const { create_user_id } = require('../../../middleware/common');
 const { StatusCodes } = require('http-status-codes');
 const { email_verification_body } = require('../../../data/objects/mail/mailBody');
 const { _sendMail } = require('../../../utils/send_email');
-const MailSync = require('../../../data/models/auth/mailSync');
+const Users = require('../../../data/models/customer/auth/users');
+const MailSync = require('../../../data/models/mailSync');
 exports.register_User = async (req, res) => {
     const reqData = req.body;
 

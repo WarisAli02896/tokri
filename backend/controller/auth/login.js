@@ -1,8 +1,8 @@
-const Users = require("../../../data/models/auth/users");
+const Users = require("../../data/models/customer/auth/users");
 const bcrypt = require('bcryptjs');
-const { merge_objects } = require("../../../middleware/common");
-const { jwtPayload } = require("../../../data/objects/auth/jwtToken");
-const { jwtToken } = require("../../../middleware/jsontoken");
+const { merge_objects } = require("../../middleware/common");
+const { jwtPayload } = require("../../data/objects/auth/jwtToken");
+const { jwtToken } = require("../../middleware/jsontoken");
 const { StatusCodes } = require("http-status-codes");
 
 exports.login = async (req, res) => {

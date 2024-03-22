@@ -1,7 +1,7 @@
 const { DataTypes, ForeignKeyConstraintError, Model } = require("sequelize");
-const { seq } = require("../../../utils/sequlize");
+const { seq } = require("../../../../utils/sequlize");
 const Products = require("./products");
-const Users = require("../auth/users");
+const Users = require("../../customer/auth/users");
 
 const ProductReview = seq.define('ProductReview', {
     

@@ -1,6 +1,6 @@
 //Defining routes
-const auth = require('./auth/auth');
-const shops = require('./auth/shops');
+const auth = require('./customer/auth');
+const shops = require('./shopkeeper/shops');
 
 module.exports = {
     auth,
