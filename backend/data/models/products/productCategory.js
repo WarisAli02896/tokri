@@ -1,9 +1,10 @@
 const { DataTypes, ForeignKeyConstraintError } = require("sequelize");
 const { seq } = require("../../../utils/sequlize");
+const Products = require("./products");
 
 const ProductCategory = seq.define('ProductCategory', {
     
-    poductCategory_id:{
+    productCategory_id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -24,12 +25,5 @@ const ProductCategory = seq.define('ProductCategory', {
     updatedAt: true,
     tableName: "productCategory",
 });
-
-ProductCategory.hasMany(
-    Products,{
-        as: 'products',
-        foreignKey: 'productCategory_id'
-    }
-)
 
 module.exports = ProductCategory;

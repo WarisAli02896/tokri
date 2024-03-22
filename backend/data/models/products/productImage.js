@@ -17,10 +17,7 @@ const ProductImage = seq.define('ProductImage', {
     URL:{
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    is_promary:{
-        
-    },
+    }
 },{
     timestamps: true,
     createdAt: true,

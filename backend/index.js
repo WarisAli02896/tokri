@@ -5,7 +5,7 @@ const route = require('./route/route');
 const port = process.env.SERVER_PORT
 
 //Database connection
-// require('./utils/sequlize');
+require('./data/models/loadModels')
 
 //Object for Express Class
 const app = express()

@@ -69,53 +69,9 @@ const Users = seq.define('Users', {
         }
 
     },
-    cnic: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: "cnic can not be null"
-            },
-            isNumeric: {
-                msg: "number are only allowed in cnic"
-            }
-        }
-    },
-    ntn: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: "ntn can not be null"
-            },
-            isNumeric: {
-                msg: "number are only allowed in cnic"
-            }
-        }
-    },
     profile_picture: {
         type: DataTypes.STRING,
         allowNull: true
-    },
-    cnic_front: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-            // notNull: {
-            //     msg: "cnic_front can not null"
-            // }
-        }
-    },
-    cnic_back: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-            // notNull: {
-            //     msg: "cnic_front can not null"
-            // }
-        }
     },
     type: {
         type: DataTypes.STRING,
@@ -152,13 +108,6 @@ Users.hasMany(
     Shops,
     {
         as: 'shops',
-        foreignKey: 'user_id'
-    }
-)
-Users.hasMany(
-    ProductReviews,
-    {
-        as: 'productreview',
         foreignKey: 'user_id'
     }
 )

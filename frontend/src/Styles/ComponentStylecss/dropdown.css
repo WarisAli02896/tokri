@@ -1,0 +1,55 @@
+/* dropdown.css */
+
+/* Wrapper */
+.dropdown-wrapper {
+  position: relative;
+}
+
+/* Trigger */
+.dropdown-trigger {
+  cursor: pointer;
+}
+
+/* Menu */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 120px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Show Menu on Hover */
+.dropdown-wrapper:hover .dropdown-menu {
+  display: block;
+}
+
+/* Menu Items */
+.dropdown-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Menu Item Hover */
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Menu Link */
+.dropdown-menu li a.dropdown-link {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Menu Link Hover */
+.dropdown-menu li a.dropdown-link:hover {
+  color: #007bff;
+}
