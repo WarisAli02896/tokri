@@ -1,0 +1,58 @@
+/* profiledropdown.css */
+
+/* Dropdown Wrapper */
+.profile-dropdown {
+  position: relative;
+}
+
+/* Profile Icon */
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dropdown Menu */
+.profile-dropdown .dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 120px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Show Menu on Hover */
+.profile-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Menu Items */
+.profile-dropdown .dropdown-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333; /* Set text color to a visible color */
+}
+
+/* Menu Item Hover */
+.profile-dropdown .dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Menu Link */
+.profile-dropdown .dropdown-menu li a {
+  text-decoration: none;
+}
+
+/* Menu Link Hover */
+.profile-dropdown .dropdown-menu li a:hover {
+  color: #007bff;
+}

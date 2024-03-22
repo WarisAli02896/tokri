@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import ProfileDropdown from '../Atoms/ProfileDropdown';
 import '../../Styles/ComponentStylecss/navbar.css';
+import ProfileDropdown from '../Atoms/ProfileDropdown';
 
-const Navbar = ({ userRole }) => {
+const ReusableNavbar = ({ userRole, user }) => {
   const menuItems = getNavbarMenu(userRole);
 
   return (
@@ -17,7 +17,7 @@ const Navbar = ({ userRole }) => {
             </li>
           ))}
         </ul>
-        {/* <ProfileDropdown user={user} /> */}
+        <ProfileDropdown  user={user}/>
       </div>
     </nav>
     </header>
@@ -46,4 +46,4 @@ const getNavbarMenu = (userRole) => {
   }
 };
 
-export default Navbar;
+export default ReusableNavbar;

@@ -1,6 +1,12 @@
 import React from 'react';
 import Navbar from '../Components/Atoms/Navbar';
 import '../Styles/PagesStylescss/homepage.css';
+// import '../Assets/logopic.png';
+
+const currentUser = {
+  profileImage: '../Assests/logopic.png',
+  role: 'admin', // or 'user'
+};
 
 const HomePage = ({ userRole }) => {
   
@@ -10,7 +16,7 @@ const HomePage = ({ userRole }) => {
     case 'admin':
       content = (
         <div>
-          <Navbar userRole={userRole}/>
+          <Navbar userRole={userRole} user={currentUser}/>
           <div className='admin-content'>
             <h2>Admin</h2>
           </div>

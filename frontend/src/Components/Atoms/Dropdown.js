@@ -1,5 +1,7 @@
 // DropdownMenu.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../../Styles/ComponentStylecss/dropdown.css';
 
 const Dropdown = ({ items, trigger }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,14 +11,16 @@ const Dropdown = ({ items, trigger }) => {
   };
 
   return (
-    <div className="dropdown-menu-wrapper">
+    <div className="dropdown-wrapper">
       <div className="dropdown-trigger" onClick={toggleMenu}>
         {trigger}
       </div>
       {isMenuOpen && (
         <ul className="dropdown-menu">
           {items.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index}> 
+            <Link to={item.link} className="dropdown-link">{item.label}</Link>
+            </li>
           ))}
         </ul>
       )}
