@@ -40,6 +40,9 @@ const getNavbarMenu = (userRole) => {
       return [
         { label: 'Home', link: '/shopkeeper' },
         { label: 'Shop', link: '/shop' },
+        { label: 'Product For Sell', link: '/pfs'},
+        { label: 'Product For Rent', link: '/pfr'},
+        { label: 'Order', link: '/order'},
       ];
     default:
       return [];
