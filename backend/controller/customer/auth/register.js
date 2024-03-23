@@ -49,7 +49,7 @@ exports.register_User = async (req, res) => {
                 } else if (isCreated == true) {
                     try {
                         email_verification_body.to = data.email;
-                        email_verification_body.text = `${process.env.BASE_URL}/user/verifyUser?id=${data.user_id}`;
+                        email_verification_body.text = `${process.env.BASE_URL}/user/verifyUser?id=${data.user_id}&type=Customer`;
                         await _sendMail(email_verification_body);
 
                         //saving status of mail

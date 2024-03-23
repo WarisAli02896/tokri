@@ -104,11 +104,11 @@ Users.hasMany(
     }
 );
 
-Users.hasMany(
-    Shops,
-    {
-        as: 'shops',
-        foreignKey: 'user_id'
-    }
-)
+// Users.hasMany(
+//     Shops,
+//     {
+//         as: 'shops',
+//         foreignKey: 'user_id'
+//     }
+// )
 module.exports = Users;

@@ -1,11 +1,12 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const Users = require("../../data/models/customer/auth/users");
 const Shops = require("../../data/models/shopKeeper/shop/shops");
+const ShopKeeper = require("../../data/models/shopKeeper/auth/shopKeeper");
 
-exports.verify_user = (req, res) => {
+exports.verify_user = async (req, res) => {
     const reqData = req.query;
-
-    const user = Users.findAll(
+    
+    const user = await model.findAll(
         {
             limit: 1,
             where: {
@@ -19,7 +20,7 @@ exports.verify_user = (req, res) => {
         .then(async (user) => {
             if (user.length >= 1) {
                 if (user[0].verified == 0 || user[0].verified == false) {
-                    let verify = await Users.update(
+                    let verify = await model.update(
                         {
                             verified: 1
                         },
@@ -95,7 +96,7 @@ exports.verify_shop = async (req, res) => {
         },
     })
         .then(async (shop) => {
-            if (shop!= null) {
+            if (shop != null) {
                 if (shop.dataValues.verified == 0 || shop.dataValues.verified == false) {
                     await Shops.update(
                         {
@@ -143,7 +144,7 @@ exports.verify_shop = async (req, res) => {
                         },
                     });
                 }
-            } else if (shop == null ) {
+            } else if (shop == null) {
                 return res.status(StatusCodes.OK).json({
                     data: {
                         message: "No Records found to update",
