@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../Styles/ComponentStylecss/navbar.css';
-import ProfileDropdown from '../Atoms/ProfileDropdown';
+import { useEffect, useState } from 'react';
+import ProfileDropdown from './ProfileDropdown';
+import logo from '../../Assets/logopic.png'
 
-const ReusableNavbar = ({ userRole, user }) => {
+
+const ReusableNavbar = ({ userRole }) => {
   const menuItems = getNavbarMenu(userRole);
+
+  const [user, setUser] = useState('user'); // Set the user state variable based on the current user
+
+  const userProfilePicture = {logo}; // Set the user profile picture
+
 
   return (
     <header className='header'>
@@ -17,7 +25,7 @@ const ReusableNavbar = ({ userRole, user }) => {
             </li>
           ))}
         </ul>
-        <ProfileDropdown  user={user}/>
+        <ProfileDropdown user={user} userProfilePicture={userProfilePicture} />
       </div>
     </nav>
     </header>
@@ -42,7 +50,7 @@ const getNavbarMenu = (userRole) => {
         { label: 'Shop', link: '/shop' },
         { label: 'Product For Sell', link: '/pfs'},
         { label: 'Product For Rent', link: '/pfr'},
-        { label: 'Order', link: '/order'},
+        { label: 'Order', link: '/orders'},
       ];
     default:
       return [];

@@ -1,55 +1,59 @@
-/* dropdown.css */
-
-/* Wrapper */
-.dropdown-wrapper {
+/* DropdownMenu.css */
+.dropdown {
   position: relative;
+  display: inline-block;
+  width: 120px; /* Increased width for better visibility */
 }
 
-/* Trigger */
-.dropdown-trigger {
+.dropdown-header {
   cursor: pointer;
-}
-
-/* Menu */
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 0;
-  z-index: 1000;
-  display: none;
-  min-width: 120px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  list-style: none;
-  background-color: #fff;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f9f9f9;
+  transition: background-color 0.3s; /* Smooth transition on hover */
 }
 
-/* Show Menu on Hover */
-.dropdown-wrapper:hover .dropdown-menu {
-  display: block;
+.dropdown-header:hover {
+  background-color: #eaeaea; /* Lighter background color on hover */
 }
 
-/* Menu Items */
-.dropdown-menu li {
-  padding: 8px 12px;
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  width: 100%; /* Full width dropdown list */
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+.dropdown-list li {
+  padding: 10px;
   cursor: pointer;
+  color: #333; /* Darker text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
+  list-style: none;
 }
 
-/* Menu Item Hover */
-.dropdown-menu li:hover {
+.dropdown-list li:hover {
+  background-color: #f2f2f2; /* Lighter background color on hover */
+  color:  #1861fd;
+}
+
+.dropdown-list li a {
+  text-decoration: none; /* Remove default link underline */
+  color: #333; /* Darker text color */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.dropdown-list li a:hover {
+  color: #1861fd; /* Change text color on hover */
   background-color: #f0f0f0;
-}
-
-/* Menu Link */
-.dropdown-menu li a.dropdown-link {
-  text-decoration: none;
-  color: #333;
-}
-
-/* Menu Link Hover */
-.dropdown-menu li a.dropdown-link:hover {
-  color: #007bff;
 }

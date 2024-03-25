@@ -1,31 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import Dropdown from '../Atoms/Dropdown';
-import '../../Styles/ComponentStylecss/profiledropdown.css';
 
-const ProfileDropdown = ({ user }) => {
-  let menuItems = [
-    { label: 'Logout', link: '/login' }
-  ];
+const ProfileDropdown = ({ user, userProfilePicture }) => {
+  let options = [];
+  // Set options based on user role
+  switch (user) {
+    case 'user':
+      options = [{text: 'Edit Profile', link: '/edit-profile' },
+      {text: 'logout', link: '/login' }];
+      break;
+    case 'admin':
+      options = [ {text: 'Manage Users', link: '/Manage Users' },
+      {text: 'Settings', link: '/setting' }, 
+      {text: 'Logout', link: '/LoginPage' }];
+      break;
+    case 'shopkeeper':
+      options = ['Manage Products', 'Settings', 'Logout'];
+      break;
+    default:
+      options =[{text: 'Edit Profile', link: '/edit-profile' },
+      {text: 'Logout', link: '/login' }];
+      break;
+  }
 
-  if (user.role === 'admin') {
-    menuItems.unshift({ label: 'orders', link: '/shop' });
-  } else if (user.role === 'shopkeeper') {
-    menuItems.unshift({ label: ' Option', link: '/shop' });
-  } else{
-    menuItems.unshift({ label: 'User Option', link: '/user' });
+  const handleSelect = (index) => {
+    // Handle option selection
+    // ...
   }
 
   return (
     <div className="profile-dropdown">
-      <Dropdown className='dropdown'
-        items={menuItems.map(item => (
-          <Link to={item.link} key={item.label}>
-            {item.label}
-          </Link>
-        ))}
-        trigger={<img src={user.profileImage} alt="Profile" className="profile-icon" />}
-      />
+      {/* Use the Dropdown component with the selectOption prop set to false */}
+      <Dropdown options={options} trigger={<img src={userProfilePicture} alt="User Avatar" className='profile-icon' />}
+       useLinks={true}
+        selectOption={false}
+         onSelect={handleSelect} />
     </div>
   );
 };

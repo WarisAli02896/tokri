@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../Styles/ComponentStylecss/productforsell.css';
-import InputField from '../Atoms/inputfield';
+import InputField from '../Atoms/Inputfield';
 
 const sizes = ['Small', 'Medium', 'Large', 'X-Large', '2X-Large', '3X-Large'];
 

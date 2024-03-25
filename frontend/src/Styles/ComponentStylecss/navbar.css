@@ -3,10 +3,10 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: transparent;
+    background-color: #3492d1;
     z-index: var(--z-fixed);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border-bottom: 5px solid #3492d1; /* Add a border line at the bottom */
+    border-bottom: 5px solid #045286; /* Add a border line at the bottom */
   }
   
   .navbar-container {

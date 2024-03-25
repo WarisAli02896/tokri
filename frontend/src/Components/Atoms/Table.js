@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../Styles/ComponentStylecss/table.css';
+import  Button from '../../Components/Atoms/Button'
 import { useNavigate } from "react-router-dom";
 
 const Table = ({ searchTerm, headers }) => {
@@ -60,7 +61,7 @@ const Table = ({ searchTerm, headers }) => {
               {headers.map((header, cellIndex) => (
                 <td key={cellIndex}>{item[header]}</td>
               ))}
-              <td><button onClick={handleEdit} id='btn'>Edit</button></td>
+              <td><Button onClick={handleEdit} id='btn'>Edit</Button></td>
             </tr>
           ))}
         </tbody>
