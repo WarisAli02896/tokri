@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../../Styles/ComponentStylecss/table.css';
-import  Button from '../../Components/Atoms/Button'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import SearchBar from '../../Components/Atoms/SearchBar';
+import Button from '../../Components/Atoms/Button'; // Assuming Button component is in the same directory
 
-const Table = ({ searchTerm, headers }) => {
-  const navigate = useNavigate();
+const Table = ({ headers }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    filterData();
-  }, [searchTerm]);
-
-  const handleEdit = () => {
-    navigate(`/srp`);
-  };
 
   const fetchData = async () => {
     try {
@@ -31,24 +25,35 @@ const Table = ({ searchTerm, headers }) => {
     }
   };
 
-  const filterData = () => {
+  const filterData = useCallback((searchTerm) => {
     if (searchTerm.trim() === '') {
       return setFilteredData(data);
     }
 
     const filteredData = data.filter(item =>
       Object.values(item).some(value =>
-        typeof value === 'string' && value.toUpperCase().includes(searchTerm.toUpperCase())
+        typeof value === 'string' && value.slice(0, 2).toUpperCase().includes(searchTerm.slice(0, 2).toUpperCase())
       )
     );
     setFilteredData(filteredData);
+  }, [data]);
+
+  useEffect(() => {
+    filterData(searchTerm);
+  }, [filterData, searchTerm]);
+
+  const handleActionClick = () => {
+    navigate('/srp');
   };
 
   return (
-    <div className="container">
-      <table>
+    <div className="table-container">
+      <SearchBar onSearch={setSearchTerm} />
+      <table className="table">
         <thead>
           <tr>
+            <th>ID</th>
+            <th>Name</th>
             {headers.map((header, index) => (
               <th key={index}>{header}</th>
             ))}
@@ -56,12 +61,21 @@ const Table = ({ searchTerm, headers }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((item, rowIndex) => (
+        {filteredData.map((item, rowIndex) => (
             <tr key={rowIndex}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
               {headers.map((header, cellIndex) => (
-                <td key={cellIndex}>{item[header]}</td>
+                <td key={cellIndex}>{item[header]}</td> 
               ))}
-              <td><Button onClick={handleEdit} id='btn'>Edit</Button></td>
+               <td>
+                <Button
+                  label="Edit"
+                  onClick={handleActionClick}
+                  type="button"
+                  className="edit-button"
+                />
+              </td>
             </tr>
           ))}
         </tbody>

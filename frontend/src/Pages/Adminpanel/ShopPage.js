@@ -1,29 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Table from '../../Components/Atoms/Table';
 import Navbar from '../../Components/Atoms/Navbar';
-import SearchBar from '../../Components/Atoms/SearchBar';
 import '../../Styles/PagesStylescss/adminpage/shoppage.css';
 
- const ShopPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearch = (value) => {
-    setSearchTerm(value);
-  };
-
+const ShopPage = () => {
+  const tableHeaders = ['Email', 'OwnerName', 'CNIC', 'NTN', 'Area', 'Status'];
   return (
     <div className='shop-page'>
       <Navbar userRole="admin"/>
-      <div className="search-table-container">
-        <div className="search-form">
-          <SearchBar onSearch={handleSearch} />
-        </div>
-        <div className="container">
-          <Table 
-            searchTerm={searchTerm} 
-            headers={['ID','Name','Email','OwnerName','CNIC', 'NTN', 'Area', 'Status']} 
-          />
-        </div>
+      <div className="container">
+        <Table headers={tableHeaders} />
       </div>
     </div>
   );
