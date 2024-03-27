@@ -16,7 +16,8 @@ app.use(bodyParser.json());
 //Setting up routes
 app.use('/fyp',
     route.auth,
-    route.shops
+    route.shops,
+    route.shopKeeper
 )
 
 //Initiate Application on port 3000

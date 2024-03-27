@@ -36,8 +36,8 @@ const ShopKeeper = seq.define('Shopkeeper', {
             notNull: {
                 msg: 'Shopkeeper email can not be null'
             },
-            isEmail:{
-                msg:"Email format is not correct"
+            isEmail: {
+                msg: "Email format is not correct"
             }
         }
     },
@@ -167,7 +167,7 @@ const ShopKeeper = seq.define('Shopkeeper', {
                 }
             }
         },
-        afterFind:(record) => {
+        afterFind: (record) => {
             if (record) {
                 if (record.dataValues.is_deleted == 1) {
                     delete record.dataValues.is_deleted;
@@ -177,7 +177,7 @@ const ShopKeeper = seq.define('Shopkeeper', {
                     record.dataValues.is_deleted = "Active"
                 }
             }
-        },
+        }
     }
 });
 
@@ -185,7 +185,7 @@ ShopKeeper.hasMany(
     Shops,
     {
         as: 'shops',
-        foreignKey: 'user_id'
+        foreignKey: 'shopKeeper_id'
     }
 )
 

@@ -9,7 +9,7 @@ const Shops = seq.define('Shops', {
         autoIncrement: true,
         unique: true
     },
-    user_id:{
+    shopKeeper_id:{
         type: DataTypes.INTEGER,
         unique: false
     },

@@ -2,13 +2,10 @@ const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
 
 exports.jwtToken = (value) => {
+    const id = value.user_id || value.shopKeeper_id;
     return new Promise((resolve, reject) => {
         const payload = {
-            user_id: value.user_id,
-            name: `${value.firstname} ${value.lastname}`,
-            email: value.email,
-            type: value.type,
-            verified: value.verified
+            value
         };
 
         const secret = process.env.SESSION_SECRET;
@@ -52,7 +49,7 @@ exports.verifyAccessToken = (req, res, next) => {
                 });
             } else if (result) {
                 const _token = jwt.verify(token[1], process.env.SESSION_SECRET);
-                req.body.User = _token;
+                req.body.User = _token.value;
                 next();
             }
         });

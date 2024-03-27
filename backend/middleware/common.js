@@ -24,18 +24,16 @@ exports.merge_objects = (obj1, obj2) => {
     return obj1;
 }
 
-
-// exports.merge_objects_with_nested = (obj1, obj2) => {
-//     for (const key in obj1) {
-//         // Check if the key exists in obj2 and is an object
-//         if (typeof obj1[key] === 'object' && obj2.hasOwnProperty(key) && typeof obj2[key] === 'object') {
-//             // Recursively copy values from nested objects
-//             copyValues(obj1[key], obj2[key]);
-//         } else if (obj2.hasOwnProperty(key)) {
-//             // Copy the value from obj1 to obj2
-//             obj2[key] = obj1[key];
-//         }
-//     }
-
-//     return obj2
-// }
+exports.filter_merge_object = (fresh, acceptor) => {
+    try {
+        let filtered = {};
+        Object.keys(fresh).forEach(key => {
+            if (acceptor.includes(key)) {
+                filtered[key] = fresh[key];
+            }
+        });
+        return filtered
+    } catch (error) {
+        return null
+    }
+}

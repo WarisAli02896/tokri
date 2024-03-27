@@ -5,7 +5,7 @@ const { email_verification_body } = require("../../../data/objects/mail/mailBody
 const { _sendMail } = require("../../../utils/send_email");
 const Mail = require("../../../data/models/sync/mail");
 
-exports.register = async (req, res) => {
+exports.register_shopkeeper = async (req, res) => {
     const reqData = req.body;
 
     if (reqData.password == reqData.confirmPassword) {
@@ -67,8 +67,7 @@ exports.register = async (req, res) => {
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
                                         responseCode: "auth0004",
-                                        ShopKeeper: data.dataValues,
-                                        Mail: mail
+                                        ShopKeeper: data.dataValues
                                     }
                                 })
                             })
@@ -97,8 +96,7 @@ exports.register = async (req, res) => {
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
                                         responseCode: "auth0004",
-                                        ShopKeeper: data.dataValues,
-                                        Mail: mail
+                                        ShopKeeper: data.dataValues
                                     }
                                 })
                             })
