@@ -1,13 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 const ShopKeeper = require("../../../data/models/shopKeeper/auth/shopKeeper");
 const { filter_merge_object } = require("../../../middleware/common");
-const {
-  update_accepted_data,
-  shopKeeper,
-} = require("../../../data/objects/shopKeeper/auth/shopKeeper");
-const {
-  update_email_verification_body,
-} = require("../../../data/objects/mail/mailBody");
+const { update_accepted_data, shopKeeper,} = require("../../../data/objects/shopKeeper/auth/shopKeeper");
+const {update_email_verification_body,} = require("../../../data/objects/mail/mailBody");
 
 exports.update_shopkeeper = async (req, res) => {
   const reqData = req.body;
@@ -233,3 +228,18 @@ exports.update_email = async (req, res) => {
         })
     })
 };
+
+exports.update_password= async(req, res)=>{
+  const reqData = req.body;
+  console.log("hbjhguygyu")
+
+  await ShopKeeper.findOne({
+    where: {
+      
+    },
+  })
+  // .then(async()=>{
+
+  // })
+
+}
