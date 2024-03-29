@@ -5,7 +5,7 @@ import "../../Styles/ComponentStylecss/shoprequestform.css";
 // Create a ref outside the component
 const fileInputRef = React.createRef();
 
-const ShopRequestForm = () => {
+const ShopRequestForm = ({ showRegisterAs }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -17,6 +17,7 @@ const ShopRequestForm = () => {
     area: '',
     address: '',
     photos: [],
+    userType: '',
   });
 
   const handleInputChange = (e) => {
@@ -31,7 +32,15 @@ const ShopRequestForm = () => {
   if (e && e.target) {
     const photos = Array.from(e.target.files);
     setFormData({ ...formData, photos });
-  }
+  }};
+
+  const handleUserTypeChange = (e) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      setFormData({ ...formData, userType: name });
+    } else {
+      setFormData({ ...formData, userType: '' });
+    }
   };
 
   // Handle face structure click
@@ -79,6 +88,13 @@ const ShopRequestForm = () => {
 
         {/* Right side: User information */}
         <div className="right-section">
+        {showRegisterAs && <div>
+            <label>Register as:</label><br />
+            <input type="checkbox" name="user" checked={formData.userType === 'user'} onChange={handleUserTypeChange} />
+            <label htmlFor="user"> User</label>
+            <input type="checkbox" name="shopkeeper" checked={formData.userType === 'shopkeeper'} onChange={handleUserTypeChange} />
+            <label htmlFor="shopkeeper"> Shopkeeper</label>
+          </div> }
           <div>
             <label>First Name:</label>
             <InputField type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />

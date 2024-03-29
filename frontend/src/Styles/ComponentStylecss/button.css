@@ -1,26 +1,57 @@
-/* Button Styles */
 .submit-button {
-  background-color: #389dd8; /* Green background color */
-  color: rgb(221, 210, 210); /* White text color */
-  padding: 20px 60px; /* Padding to provide some space around the text */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Add a slight border radius for a rounded look */
-  cursor: pointer; /* Add pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for background color change */
+  background-color: #007bff; /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
   font-size: 16px;
-  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Hover effect */
 .submit-button:hover {
-  background-color: #2386ad; /* Darker green on hover */
+  background-color: #0056b3; /* Darker blue */
 }
 
-/* Responsive Styling */
-@media only screen and (max-width: 600px) {
-  /* Adjust styles for smaller screens */
+.submit-button:active {
+  background-color: #004080; /* Dark blue */
+}
+
+/* Additional styles for different button types */
+.submit-button.primary {
+  background-color: #007bff; /* Blue */
+}
+
+.submit-button.secondary {
+  background-color: #6c757d; /* Gray */
+}
+
+.submit-button.success {
+  background-color: #28a745; /* Green */
+}
+
+.submit-button.danger {
+  background-color: #dc3545; /* Red */
+}
+
+.submit-button.warning {
+  background-color: #ffc107; /* Yellow */
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
   .submit-button {
-    padding: 8px 16px; /* Adjust padding for smaller screens */
-    font-size: 14px; /* Decrease font size for smaller screens */
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .submit-button {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }

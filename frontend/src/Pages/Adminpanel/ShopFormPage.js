@@ -6,6 +6,7 @@ import '../../Styles/PagesStylescss/adminpage/shopformpage.css';
 
 const ShopFormPage = () => {
   const navigate = useNavigate();
+  // const [status, setStatus] = useState('');
 
   const handleAccept = () => {
     navigate('/shop');
@@ -16,13 +17,19 @@ const ShopFormPage = () => {
   }
 
   return (
-    <div className='shopformpage'>
+    <div className='shop-form-page'>
       <div className='srf'>
-        <ShopRequestForm />
-        <div className='buttons'>
-        <Button onClick={handleAccept}>Accept</Button>
-        <Button onClick={handleReject}>Reject</Button>
-    </div>
+        <ShopRequestForm showRegisterAs/>
+        <div className="button-container">
+        <Button label="Accept" 
+        onClick={handleAccept} 
+        type="button" 
+        className="accept-button" />
+        <Button label="Reject" 
+        onClick={handleReject} 
+        type="button" 
+        className="reject-button" />
+      </div>
     </div>
     </div>
   )

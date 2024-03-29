@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import '../../Styles/ComponentStylecss/table.css';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../Components/Atoms/SearchBar';
-import Button from '../../Components/Atoms/Button'; // Assuming Button component is in the same directory
+import Button from '../../Components/Atoms/Button'; 
+import DropdownButton from './DropdownButton';
 
-const Table = ({ headers }) => {
+const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,9 +47,24 @@ const Table = ({ headers }) => {
     navigate('/srp');
   };
 
+  const dropdownOptions = [
+    { value: 'option1', text: 'Option 1'},
+  ];
+
+  const handleAddButtonClick = () => {
+    console.log('Add button clicked');
+  }
+
   return (
     <div className="table-container">
-      <SearchBar onSearch={setSearchTerm} />
+      {showSearchBar && <SearchBar onSearch={setSearchTerm} /> }
+      {showDropdown && <DropdownButton buttonText="Dropdown" options={dropdownOptions} /> }
+      {showAddButton && <Button 
+      label="Add"
+      onClick={handleAddButtonClick}
+      type="button"
+      className="add-button"
+      /> }
       <table className="table">
         <thead>
           <tr>
