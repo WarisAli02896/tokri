@@ -5,7 +5,7 @@ import "../../Styles/ComponentStylecss/shoprequestform.css";
 // Create a ref outside the component
 const fileInputRef = React.createRef();
 
-const ShopRequestForm = ({ showRegisterAs }) => {
+const ShopRequestForm = ({ showRegisterAs, showNTNNumber, showCNICNumber, showShopPhotos, showCNICPhotos }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -111,14 +111,14 @@ const ShopRequestForm = ({ showRegisterAs }) => {
             <label>Phone No:</label>
             <InputField type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required />
           </div>
-          <div>
+          {showCNICNumber && <div>
             <label>CNIIC No:</label>
             <InputField type="text" name="cniic" value={formData.cnic} onChange={handleInputChange} required />
-          </div>
-          <div>
+          </div>}
+          {showNTNNumber && <div>
             <label>NTN No:</label>
             <InputField type="text" name="ntn" value={formData.ntn} onChange={handleInputChange} required />
-          </div>
+          </div>}
         </div>
 
         {/* Address section */}
@@ -135,14 +135,14 @@ const ShopRequestForm = ({ showRegisterAs }) => {
             <label>Address:</label>
             <textarea name="address" value={formData.address} onChange={handleInputChange} required />
           </div>
-          <div>
+          {showShopPhotos && <div>
             <label>Shop Photos:</label>
             <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>
-          <div>
+          </div>}
+          {showCNICPhotos && <div>
             <label>CNIC Photos:</label>
             <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>
+          </div>}
         </div>
       </div>
     </form>

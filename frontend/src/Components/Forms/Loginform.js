@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../Atoms/Button';
 import '../../Styles/ComponentStylecss/loginform.css'; // Import the CSS file
 
-const LoginForm = ({ showRememberMe, showForgotPassword, showShopButton }) => {
+const LoginForm = ({ showRememberMe, showForgotPassword, showCreateAccountButton }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -27,7 +27,7 @@ const LoginForm = ({ showRememberMe, showForgotPassword, showShopButton }) => {
     console.log('Forgot Password clicked');
   };
 
-  const handleShopRequest = () => {
+  const handleCreateAccountRequest = () => {
     // Implement your shop request logic here
     console.log('Request for Shop clicked');
   };
@@ -66,11 +66,11 @@ const LoginForm = ({ showRememberMe, showForgotPassword, showShopButton }) => {
         </p>
       )}
 
-      {showShopButton && (
+      {showCreateAccountButton && (
          <Button
-         label="Request for Shop"
-         onClick={handleShopRequest}
-         className="shop-button"
+         label="Create an Account"
+         onClick={handleCreateAccountRequest}
+         className="account-button"
        />
       )}
     </div>

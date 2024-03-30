@@ -6,7 +6,7 @@ import ProfileDropdown from './ProfileDropdown';
 import logo from '../../Assets/logopic.png'
 
 
-const ReusableNavbar = ({ userRole }) => {
+const Navbar = ({ userRole }) => {
   const menuItems = getNavbarMenu(userRole);
 
   const [user, setUser] = useState('user'); // Set the user state variable based on the current user
@@ -57,4 +57,4 @@ const getNavbarMenu = (userRole) => {
   }
 };
 
-export default ReusableNavbar;
+export default Navbar;

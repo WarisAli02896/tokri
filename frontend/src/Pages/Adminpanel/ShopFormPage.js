@@ -19,7 +19,11 @@ const ShopFormPage = () => {
   return (
     <div className='shop-form-page'>
       <div className='srf'>
-        <ShopRequestForm showRegisterAs/>
+        <ShopRequestForm showRegisterAs 
+        showCNICNumber
+        showNTNNumber
+        showShopPhotos
+        showCNICPhotos/>
         <div className="button-container">
         <Button label="Accept" 
         onClick={handleAccept} 
