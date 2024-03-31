@@ -12,10 +12,15 @@ exports.register_User = async (req, res) => {
             reqData.password = await bcrypt.hashSync(reqData.password, await bcrypt.genSaltSync(parseInt(process.env.SALT)));
         } catch (error) {
 
-            return res.status(StatusCodes.NOT_FOUND).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data: {
                     errorMessage: 'Unable to create account',
-                    errorCode: 'auth0002'
+                    errorCode: 'auth0002',
+                    Error:{
+                        errorCode: error.status,
+                        errorMessage: error.message,
+                        error
+                    }
                 }
             })
         }

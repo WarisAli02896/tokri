@@ -2,6 +2,7 @@ require('./customer/auth/users');
 require('./shopKeeper/auth/shopKeeper');
 require('./mailSync');
 require('./sync/mail');
+require('./sync/update');
 
 require('./shopKeeper/shop/shops');
 

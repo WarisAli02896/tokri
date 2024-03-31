@@ -9,5 +9,5 @@ exports.update_email_verification_body = {
     from:process.env.EMAIL,
     to:null,
     subject: "Verification for updated email address on Tokri",
-    text:"Email updated successfully!/n Click on link below to verify your new email address on Tokri"
+    text:"Click on link below to verify email address"
 }

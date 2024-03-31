@@ -23,7 +23,7 @@ exports.login_shopKeeper = async (req, res) => {
                         return res.status(StatusCodes.OK).json({
                             data: {
                                 responseMessage: "logged in Successfully",
-                                responseCode: "auth0008",
+                                responseCode: "auth0001",
                                 User: data.dataValues
                             }
                         });
@@ -32,7 +32,7 @@ exports.login_shopKeeper = async (req, res) => {
                         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                             data: {
                                 errorMessage: "Unable to login user! Please try again",
-                                errorCode: "auth0009",
+                                errorCode: "auth0000",
                                 logs: {
                                     message: error.message,
                                     error
@@ -44,7 +44,7 @@ exports.login_shopKeeper = async (req, res) => {
                     return res.status(StatusCodes.UNAUTHORIZED).json({
                         data: {
                             errorMessage: "Entered incorrect password",
-                            errorCode: "auth0018"
+                            errorCode: "auth0002"
                         }
                     });
                 }
@@ -52,7 +52,7 @@ exports.login_shopKeeper = async (req, res) => {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     data: {
                         errorMessage: "Your email is not registered",
-                        errorCode: "auth0019"
+                        errorCode: "auth0003"
                     }
                 });
             }
@@ -61,7 +61,7 @@ exports.login_shopKeeper = async (req, res) => {
             return res.status(err.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data: {
                     errorMessage: "Unable to login please try again",
-                    errorCode: "auth0020",
+                    errorCode: "auth0000",
                     Error: {
                         message: err.message,
                         err

@@ -33,7 +33,7 @@ exports.register_shopkeeper = async (req, res) => {
                     return res.status(StatusCodes.CONFLICT).json({
                         data: {
                             errorMessage: "Email already registered!",
-                            errorCode: "auth0003"
+                            errorCode: "auth0004"
                         },
                     })
                 } else if (isCreated == true) {
@@ -56,7 +56,7 @@ exports.register_shopkeeper = async (req, res) => {
                                 return res.status(StatusCodes.OK).json({
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
-                                        responseCode: "auth0004",
+                                        responseCode: "auth0005",
                                         ShopKeeper: data.dataValues,
                                         Mail: mail
                                     }
@@ -66,7 +66,7 @@ exports.register_shopkeeper = async (req, res) => {
                                 return res.status(StatusCodes.OK).json({
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
-                                        responseCode: "auth0004",
+                                        responseCode: "auth0005",
                                         ShopKeeper: data.dataValues
                                     }
                                 })
@@ -85,7 +85,7 @@ exports.register_shopkeeper = async (req, res) => {
                                 return res.status(StatusCodes.OK).json({
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
-                                        responseCode: "auth0004",
+                                        responseCode: "auth0005",
                                         ShopKeeper: data.dataValues,
                                         Mail: mail
                                     }
@@ -95,7 +95,7 @@ exports.register_shopkeeper = async (req, res) => {
                                 return res.status(StatusCodes.OK).json({
                                     data: {
                                         responseMessage: "Account created successfully. Please check email for account verification",
-                                        responseCode: "auth0004",
+                                        responseCode: "auth0005",
                                         ShopKeeper: data.dataValues
                                     }
                                 })
@@ -107,7 +107,7 @@ exports.register_shopkeeper = async (req, res) => {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     data: {
                         errorMessage: "Account not Created! Please try again/n",
-                        errorCode: "auth0005",
+                        errorCode: "auth0000",
                         error: {
                             message: error.message,
                             error
