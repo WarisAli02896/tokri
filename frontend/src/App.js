@@ -6,6 +6,7 @@ import HomePage from './Pages/Adminpanel/HomePage';
 import ShopPage from './Pages/Adminpanel/ShopPage';
 import ShopFormPage from './Pages/Adminpanel/ShopFormPage';
 import ProductForRentPage from './Pages/Shopkeeperpanel/ProductForRentPage';
+import AddShopPage from './Pages/Shopkeeperpanel/AddShopPage';
 // import '../src/App.css';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/srp" element={<ShopFormPage/>}/>
         <Route path="/pfrp" element={<ProductForRentPage/>}/>
         <Route path='/orders' element={<Orders/>}/>
+        <Route path='/addshop' element={<AddShopPage/>}/>
       </Routes>
       </div>
     </Router>

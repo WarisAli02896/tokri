@@ -44,7 +44,7 @@ const AddShop = () => {
     
 
         {/* Address section */}
-        <div className="address-section">
+        <div className="shop-form-section">
           <div>
           <label> Name:</label>
             <InputField type="text" name="Name" value={formData.Name} onChange={handleInputChange} required />

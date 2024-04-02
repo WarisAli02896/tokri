@@ -1,6 +1,6 @@
 
   /* Address section */
-  .address-section {
+  .shop-form-section {
 
     width: 70%;
     align-items: center;
@@ -15,18 +15,18 @@
     /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); Box shadow for address section */
   }
   
-  .address-section div {
+  .shop-form-section div {
     margin-bottom: 15px;
   }
   
-  .address-section label {
+  .shop-form-sectionlabel {
     display: block;
     font-weight: bold;
   }
   
-  .address-section input,
-  .address-section textarea,
-  .address-section select {
+  .shop-form-section input,
+  .shop-form-section textarea,
+  .shop-form-section select {
     width: calc(100% - 20px);
     padding: 10px;
     box-sizing: border-box;

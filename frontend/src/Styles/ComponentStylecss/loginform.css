@@ -36,7 +36,7 @@ input {
 }
 
 .login-button,
-.shop-button {
+.account-button {
   width: 100%;
   padding: 10px;
   background-color: #279be9; /* Set the button color to blue */

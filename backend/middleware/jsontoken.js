@@ -2,7 +2,6 @@ const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
 
 exports.jwtToken = (value) => {
-    const id = value.user_id || value.shopKeeper_id;
     return new Promise((resolve, reject) => {
         const payload = {
             value

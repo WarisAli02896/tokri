@@ -1,6 +1,13 @@
 const { StatusCodes } = require("http-status-codes");
 const ShopKeeper = require("../../../data/models/shopKeeper/auth/shopKeeper");
 const { filter_merge_object } = require("../../../middleware/common");
+const { update_accepted_data, shopKeeper, } = require("../../../data/objects/shopKeeper/auth/shopKeeper");
+const { update_email_verification_body, } = require("../../../data/objects/mail/mailBody");
+const { update_email } = require("../../../data/objects/urls/encryptPath");
+const { encrypt_Url, decrypt_Url } = require("../../../middleware/urlEncryption");
+const Mail = require("../../../data/models/sync/mail");
+const { _sendMail } = require("../../../utils/send_email");
+const Update = require("../../../data/models/sync/update");
 const {
   update_accepted_data,
   shopKeeper,
@@ -22,7 +29,7 @@ exports.update_shopkeeper = async (req, res) => {
       data: {
         errorMessage:
           "Not allowed to change cnic or ntn. Please contact support team to change cnic or ntn",
-        errorCode: "auth0010",
+        errorCode: "auth0007",
       },
     });
   } else if (
@@ -34,21 +41,21 @@ exports.update_shopkeeper = async (req, res) => {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       data: {
         errorMessage: "Shop Keeper type or Id can not be changed",
-        errorCode: "auth0011",
+        errorCode: "auth0008",
       },
     });
   } else if (reqData.is_deleted != null) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       data: {
         errorMessage: "Account can not be deleted from here",
-        errorCode: "auth0012",
+        errorCode: "auth0009",
       },
     });
   } else if (reqData.password != null) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       data: {
         errorMessage: "Password can not be chnage from here",
-        errorCode: "auth0013",
+        errorCode: "auth0009",
       },
     });
   } else if (reqData.verified != null) {
@@ -56,7 +63,7 @@ exports.update_shopkeeper = async (req, res) => {
       data: {
         errorMessage:
           "Your account can not verify from here. Please check confirmation mail to verify your account",
-        errorCode: "auth0014",
+        errorCode: "auth0009",
       },
     });
   } else {
@@ -65,88 +72,15 @@ exports.update_shopkeeper = async (req, res) => {
     if (updateShopkeeper != null || updateShopkeeper != undefined) {
       await ShopKeeper.update(updateShopkeeper, {
         where: {
-          shopkeeper_id: reqData.body.User.id,
+          shopkeeper_id: reqData.User.shopKeeper_id,
         },
+        returning: true
       })
         .then(async (shopKeeper) => {
-          if (
-            updateShopkeeper.email != null ||
-            updateShopkeeper.email != undefined
-          ) {
-            try {
-              update_email_verification_body.to = shopKeeper.dataValues.email;
-              //set according to new API
-              update_email_verification_body.text += `/n${process.env.BASE_URL}/user/verify?id=${shopKeeper.dataValues.id}&type=ShopKeeper`;
-              await _sendMail(update_email_verification_body);
-
-              await Mail.create({
-                from: update_email_verification_body.from,
-                to: update_email_verification_body.to,
-                subject: update_email_verification_body.subject,
-                text: update_email_verification_body.text,
-                reason: `Account verification mail sent to shopkeeper/n ShopKeeper_id:${shopKeeper.dataValues.shopKeeper_id}`,
-                type: "Keeper Account Verification",
-                status: true,
-              })
-                .then(async (mail) => {
-                  return res.status(StatusCodes.OK).json({
-                    data: {
-                      responseMessage:
-                        "Account created successfully. Please check email for account verification",
-                      responseCode: "auth0004",
-                      ShopKeeper: shopKeeper.dataValues,
-                      Mail: mail,
-                    },
-                  });
-                })
-                .catch(async (error) => {
-                  return res.status(StatusCodes.OK).json({
-                    data: {
-                      responseMessage:
-                        "Account created successfully. Please check email for account verification",
-                      responseCode: "auth0004",
-                      ShopKeeper: shopKeeper.dataValues,
-                    },
-                  });
-                });
-            } catch (error) {
-              await Mail.create({
-                from: update_email_verification_body.from,
-                to: update_email_verification_body.to,
-                subject: update_email_verification_body.subject,
-                text: update_email_verification_body.text,
-                reason: `Account verification mail sent to shopkeeper/n ShopKeeper_id:${shopKeeper.dataValues.shopKeeper_id}`,
-                type: "Keeper Account Verification",
-                status: false,
-              })
-                .then(async (mail) => {
-                  return res.status(StatusCodes.OK).json({
-                    data: {
-                      responseMessage:
-                        "Account created successfully. Please check email for account verification",
-                      responseCode: "auth0004",
-                      ShopKeeper: shopKeeper.dataValues,
-                      Mail: mail,
-                    },
-                  });
-                })
-                .catch(async (error) => {
-                  return res.status(StatusCodes.OK).json({
-                    data: {
-                      responseMessage:
-                        "Account created successfully. Please check email for account verification",
-                      responseCode: "auth0004",
-                      ShopKeeper: shopKeeper.dataValues,
-                    },
-                  });
-                });
-            }
-          }
           return res.status(StatusCodes.OK).json({
             data: {
               responseMessage: "Profile updated successfully.",
-              responseCode: "auth0016",
-              ShopKeeper: shopKeeper.dataValues,
+              responseCode: "auth0010"
             },
           });
         })
@@ -154,7 +88,7 @@ exports.update_shopkeeper = async (req, res) => {
           return res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
             data: {
               errorMessage: "Profile update failed please try again",
-              errorCode: "auth0017",
+              errorCode: "auth0012",
               Error: {
                 message: error.message,
                 error,
@@ -165,8 +99,8 @@ exports.update_shopkeeper = async (req, res) => {
     } else if (updateShopkeeper == null || updateShopkeeper == undefined) {
       return res.status(StatusCodes.OK).json({
         data: {
-          responseMessage: "Shopkeeper updated successfully",
-          responseMessage: "auth0015",
+          responseMessage: "Profile updated successfully",
+          responseMessage: "auth0010",
         },
       });
     }
@@ -175,8 +109,24 @@ exports.update_shopkeeper = async (req, res) => {
 
 exports.update_email = async (req, res) => {
   const reqData = req.query;
-  const decryptData = reqData;
-  ShopKeeper.findOne({
+  let decryptData = null;
+
+  await Update.findByPk(
+    reqData.set
+  )
+    .then(async (data) => {
+      decryptData = decrypt_Url(data.dataValues.data);
+    })
+    .catch(async (error) => {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        data: {
+          errorMessage: "Email update failed, try again or request to update email again from profile",
+          errorCode: "auth0000"
+        }
+      });
+    })
+
+  await ShopKeeper.findOne({
     where: {
       shopKeeper_id: decryptData.id,
       email: decryptData.email,
@@ -184,6 +134,162 @@ exports.update_email = async (req, res) => {
     attributes: {
       exclude: ["passward"],
     },
+  }).then(async (shopKeeper) => {
+    if (shopKeeper == null) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        data: {
+          errorMessage: "You are unauthorized",
+          errorCode: "auth0021"
+        }
+      })
+    } else if (shopKeeper != null) {
+      await ShopKeeper.update({
+        email: decryptData.new_email
+      }, {
+        where: {
+          shopKeeper_id: decryptData.id
+        }
+      }).then(async (shop_Keeper) => {
+        return res.status(StatusCodes.OK).json({
+          data: {
+            responseMessage: " Email successfully updated",
+            responseCode: "auth0022"
+          }
+        })
+      }).catch(async (error) => {
+        return res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+          data: {
+            errorMessage: "Email update failed please try again",
+            errorCode: "auth0023",
+            Error: {
+              message: error.message,
+              error,
+            }
+          }
+        })
+      })
+    }
+  }).catch(async (error) => {
+    return res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+      data: {
+        errorMessage: "Email update failed please try again",
+        errorCode: "auth0023",
+        Error: {
+          message: error.message,
+          error,
+        }
+      }
+    })
+  })
+};
+
+exports.verify_update_email = async (req, res) => {
+
+  const reqData = req.body;
+
+  if (reqData.new_email != null) {
+    //Encrypt shopkeeper_id, old_email, new_email for creating querry params
+    update_email.id = reqData.User.shopKeeper_id;
+    update_email.email = reqData.User.email;
+    update_email.new_email = reqData.new_email;
+    const url_path = encrypt_Url(update_email);
+
+    //send update data to update table
+    await Update.create(
+      {
+        data: url_path
+      }
+    )
+      .then(async (data) => {
+        try {
+          //set mail body
+          update_email_verification_body.to = reqData.User.email;
+          //set according to new API
+          update_email_verification_body.text += `/n${process.env.BASE_URL}/shopkeeper/update/email?set=${data.dataValues.id}`;
+          await _sendMail(update_email_verification_body);
+
+          await Mail.create({
+            from: update_email_verification_body.from,
+            to: update_email_verification_body.to,
+            subject: update_email_verification_body.subject,
+            text: update_email_verification_body.text,
+            reason: `Verify new email address updated on shopkeeper/n ShopKeeper_id:${reqData.User.shopKeeper_id}`,
+            type: "New email verification",
+            status: true,
+          })
+            .then(async (mail) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010"
+                },
+              });
+            })
+            .catch(async (error) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010",
+                },
+              });
+            });
+        } catch (error) {
+          await Mail.create({
+            from: update_email_verification_body.from,
+            to: update_email_verification_body.to,
+            subject: update_email_verification_body.subject,
+            text: update_email_verification_body.text,
+            reason: `Verify new email address updated on shopkeeper/n ShopKeeper_id:${-reqData.User.shopKeeper_id}`,
+            type: "New email verification",
+            status: false,
+          })
+            .then(async (mail) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010"
+                },
+              });
+            })
+            .catch(async (error) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010"
+                },
+              });
+            });
+        }
+      })
+      .catch(async (error) => {
+        return res.status(StatusCodes).json({
+          data: {
+            errorMessage: "Email can not update please try again",
+            errorCode: "auth0000",
+            Error: {
+              errorMessage: error.message,
+              errorCode: error.status,
+              error
+            }
+          }
+        })
+      })
+
+  } else {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      data: {
+        errorMessage: "No new email provided",
+        errorCode: "auth0012"
+      }
+    })
+  }
+}
+
+exports.update_password = async (req, res) => {
   })
     .then(async (shopKeeper) => {
       if (shopKeeper == null) {
@@ -244,6 +350,17 @@ exports.update_email = async (req, res) => {
 //code to update the password
 exports.update_password = async (req, res) => {
   const reqData = req.body;
+  console.log("hbjhguygyu")
+
+  await ShopKeeper.findOne({
+    where: {
+
+    },
+  })
+  // .then(async()=>{
+
+  // })
+
   //condition to chech newpass and confirm pass are same
   if (reqData.newpassword == reqData.confirmpassword){
     await ShopKeeper.findOne({

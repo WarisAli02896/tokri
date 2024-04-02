@@ -5,7 +5,7 @@ import "../../Styles/ComponentStylecss/shoprequestform.css";
 // Create a ref outside the component
 const fileInputRef = React.createRef();
 
-const ShopRequestForm = () => {
+const ShopRequestForm = ({ showRegisterAs, showNTNNumber, showCNICNumber, showShopPhotos, showCNICPhotos }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -17,6 +17,7 @@ const ShopRequestForm = () => {
     area: '',
     address: '',
     photos: [],
+    userType: '',
   });
 
   const handleInputChange = (e) => {
@@ -31,7 +32,15 @@ const ShopRequestForm = () => {
   if (e && e.target) {
     const photos = Array.from(e.target.files);
     setFormData({ ...formData, photos });
-  }
+  }};
+
+  const handleUserTypeChange = (e) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      setFormData({ ...formData, userType: name });
+    } else {
+      setFormData({ ...formData, userType: '' });
+    }
   };
 
   // Handle face structure click
@@ -79,6 +88,13 @@ const ShopRequestForm = () => {
 
         {/* Right side: User information */}
         <div className="right-section">
+        {showRegisterAs && <div>
+            <label>Register as:</label><br />
+            <input type="checkbox" name="user" checked={formData.userType === 'user'} onChange={handleUserTypeChange} />
+            <label htmlFor="user"> User</label>
+            <input type="checkbox" name="shopkeeper" checked={formData.userType === 'shopkeeper'} onChange={handleUserTypeChange} />
+            <label htmlFor="shopkeeper"> Shopkeeper</label>
+          </div> }
           <div>
             <label>First Name:</label>
             <InputField type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
@@ -95,14 +111,14 @@ const ShopRequestForm = () => {
             <label>Phone No:</label>
             <InputField type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required />
           </div>
-          <div>
+          {showCNICNumber && <div>
             <label>CNIIC No:</label>
             <InputField type="text" name="cniic" value={formData.cnic} onChange={handleInputChange} required />
-          </div>
-          <div>
+          </div>}
+          {showNTNNumber && <div>
             <label>NTN No:</label>
             <InputField type="text" name="ntn" value={formData.ntn} onChange={handleInputChange} required />
-          </div>
+          </div>}
         </div>
 
         {/* Address section */}
@@ -119,14 +135,14 @@ const ShopRequestForm = () => {
             <label>Address:</label>
             <textarea name="address" value={formData.address} onChange={handleInputChange} required />
           </div>
-          <div>
+          {showShopPhotos && <div>
             <label>Shop Photos:</label>
             <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>
-          <div>
+          </div>}
+          {showCNICPhotos && <div>
             <label>CNIC Photos:</label>
             <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>
+          </div>}
         </div>
       </div>
     </form>

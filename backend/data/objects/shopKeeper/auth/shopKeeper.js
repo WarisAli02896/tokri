@@ -16,4 +16,4 @@ exports.shopKeeper = {
     updatedAt: null
 }
 
-exports.update_accepted_data = ["firstname", "lastname", "phone", "email", "profile_picture"]
+exports.update_accepted_data = ["firstname", "lastname", "phone", "profile_picture"]
