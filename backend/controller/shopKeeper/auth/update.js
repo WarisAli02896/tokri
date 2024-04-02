@@ -102,22 +102,22 @@ exports.update_shopkeeper = async (req, res) => {
 
 exports.update_email = async (req, res) => {
   const reqData = req.query;
-  const decryptData = reqData;
+  let decryptData = null;
 
   await Update.findByPk(
-    reqData.id
+    reqData.set
   )
-  .then(async(data)=>{
-    decryptData = decrypt_Url(data.dataValues.data);
-  })
-  .catch(async(error)=>{
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      data:{
-        errorMessage:"Email update failed, try again or request to update email again from profile",
-        errorCode:"auth0000"
-      }
-    });
-  })
+    .then(async (data) => {
+      decryptData = decrypt_Url(data.dataValues.data);
+    })
+    .catch(async (error) => {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        data: {
+          errorMessage: "Email update failed, try again or request to update email again from profile",
+          errorCode: "auth0000"
+        }
+      });
+    })
 
   await ShopKeeper.findOne({
     where: {
@@ -146,8 +146,7 @@ exports.update_email = async (req, res) => {
         return res.status(StatusCodes.OK).json({
           data: {
             responseMessage: " Email successfully updated",
-            responseCode: "auth0022",
-            shopKeeper: shop_Keeper.dataValues
+            responseCode: "auth0022"
           }
         })
       }).catch(async (error) => {
@@ -259,12 +258,12 @@ exports.verify_update_email = async (req, res) => {
             });
         }
       })
-      .catch(async(error)=>{
+      .catch(async (error) => {
         return res.status(StatusCodes).json({
-          data:{
-            errorMessage:"Email can not update please try again",
-            errorCode:"auth0000",
-            Error:{
+          data: {
+            errorMessage: "Email can not update please try again",
+            errorCode: "auth0000",
+            Error: {
               errorMessage: error.message,
               errorCode: error.status,
               error
@@ -273,11 +272,11 @@ exports.verify_update_email = async (req, res) => {
         })
       })
 
-  }else {
+  } else {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      data:{
-        errorMessage:"No new email provided",
-        errorCode:"auth0012"
+      data: {
+        errorMessage: "No new email provided",
+        errorCode: "auth0012"
       }
     })
   }
