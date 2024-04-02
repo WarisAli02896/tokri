@@ -10,7 +10,7 @@ const seq = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNA
 try {
     seq.authenticate();
     seq.sync({
-        //force: true
+        force: true
         // alter: true
     })
 } catch (error) {
