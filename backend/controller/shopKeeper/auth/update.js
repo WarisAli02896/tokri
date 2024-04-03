@@ -184,7 +184,6 @@ exports.update_email = async (req, res) => {
 };
 
 exports.verify_update_email = async (req, res) => {
-
   const reqData = req.body;
 
   if (reqData.new_email != null) {
@@ -289,78 +288,18 @@ exports.verify_update_email = async (req, res) => {
   }
 }
 
-exports.update_password = async (req, res) => {
-  })
-    .then(async (shopKeeper) => {
-      if (shopKeeper == null) {
-        return res.status(StatusCodes.UNAUTHORIZED).json({
-          data: {
-            errorMessage: "You are unauthorized",
-            errorCode: "auth0021",
-          },
-        });
-      } else if (shopKeeper != null) {
-        ShopKeeper.update(
-          {
-            email: decryptData.new_email,
-          },
-          {
-            where: {
-              shopKeeper_id: decryptData.id,
-            },
-          }
-        )
-          .then(async (shop_Keeper) => {
-            return res.status(StatusCodes.OK).json({
-              data: {
-                responseMessage: " Email successfully updated",
-                responseCode: "auth0022",
-                shopKeeper: shop_Keeper.dataValues,
-              },
-            });
-          })
-          .catch(async (error) => {
-            return res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
-              data: {
-                errorMessage: "Email update failed please try again",
-                errorCode: "auth0023",
-                Error: {
-                  message: error.message,
-                  error,
-                },
-              },
-            });
-          });
-      }
-    })
-    .catch(async (error) => {
-      return res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
-        data: {
-          errorMessage: "Email update failed please try again",
-          errorCode: "auth0023",
-          Error: {
-            message: error.message,
-            error,
-          },
-        },
-      });
-    });
-};
+
 
 //code to update the password
 exports.update_password = async (req, res) => {
   const reqData = req.body;
-  console.log("hbjhguygyu")
-
   await ShopKeeper.findOne({
-    where: {
+    where: 
+    {
+      shopKeeper_id: reqData.User.shopKeeper_id
 
     },
   })
-  // .then(async()=>{
-
-  // })
-
   //condition to chech newpass and confirm pass are same
   if (reqData.newpassword == reqData.confirmpassword){
     await ShopKeeper.findOne({
