@@ -1,9 +1,10 @@
 const { hashSync, genSaltSync } = require("bcryptjs");
 const { StatusCodes } = require("http-status-codes");
-const ShopKeeper = require("../../../data/models/shopKeeper/auth/shopKeeper");
-const { email_verification_body } = require("../../../data/objects/mail/mailBody");
-const { _sendMail } = require("../../../utils/send_email");
-const Mail = require("../../../data/models/sync/mail");
+const ShopKeeper = require("../../../../data/models/shopKeeper/auth/shopKeeper");
+const { email_verification_body } = require("../../../../data/objects/mail/mailBody");
+const { _sendMail } = require("../../../../utils/send_email");
+const Mail = require("../../../../data/models/sync/mail");
+const { encrypt_Url, encrypt } = require("../../../../middleware/urlEncryption");
 
 exports.register_shopkeeper = async (req, res) => {
     const reqData = req.body;
@@ -39,8 +40,11 @@ exports.register_shopkeeper = async (req, res) => {
                 } else if (isCreated == true) {
                     // const str = "shaikh"
                     try {
+                        //Make shopkeeper id encrypt before sending it to url
+                        const id = await encrypt(data.dataValues.shopKeeper_id);
+
                         email_verification_body.to = data.dataValues.email;
-                        email_verification_body.text += `/n${process.env.BASE_URL}/user/verify?id=${data.dataValues.id}&type=ShopKeeper`
+                        email_verification_body.text += `/n${process.env.BASE_URL}/user/verify?id=${id}&type=ShopKeeper`
                         await _sendMail(email_verification_body);
 
                         await Mail.create({
