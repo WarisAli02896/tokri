@@ -1,9 +1,9 @@
 const { StatusCodes } = require("http-status-codes");
-const Customer = require("../../../data/models/customer/users");
 const { filter_merge_object } = require("../../../middleware/common");
 const {
   update_accepted_data,
 } = require("../../../data/objects/customer/users");
+const Users = require("../../../data/models/customer/auth/users");
 
 exports.update_user = async (req, res) => {
   const reqData = req.body;
@@ -46,7 +46,7 @@ exports.update_user = async (req, res) => {
     let updateCustomer = filter_merge_object(reqData, update_accepted_data);
 
     if (updateCustomer != null || updateCustomer != undefined) {
-      await Customer.update(updateCustomer, {
+      await Users.update(updateCustomer, {
         where: {
           user_id: reqData.User.user_id,
         },

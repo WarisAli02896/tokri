@@ -8,13 +8,7 @@ const { encrypt_Url, decrypt_Url } = require("../../../middleware/urlEncryption"
 const Mail = require("../../../data/models/sync/mail");
 const { _sendMail } = require("../../../utils/send_email");
 const Update = require("../../../data/models/sync/update");
-const {
-  update_accepted_data,
-  shopKeeper,
-} = require("../../../data/objects/shopKeeper/auth/shopKeeper");
-const {
-  update_email_verification_body,
-} = require("../../../data/objects/mail/mailBody");
+
 
 exports.update_shopkeeper = async (req, res) => {
   const reqData = req.body;
