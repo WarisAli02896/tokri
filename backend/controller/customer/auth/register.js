@@ -15,7 +15,7 @@ exports.register_User = async (req, res) => {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data: {
                     errorMessage: 'Unable to create account',
-                    errorCode: 'auth0002',
+                    errorCode: 'auth0000',
                     Error:{
                         errorCode: error.status,
                         errorMessage: error.message,

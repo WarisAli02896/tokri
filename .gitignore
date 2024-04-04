@@ -1,3 +1,5 @@
 # Removind node modules to be upload in github
 backend/node_modules
 frontend/node_modules
+frontend/package-lock.json
+backend/package-lock.json
