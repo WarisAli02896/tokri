@@ -11,7 +11,7 @@ try {
     seq.authenticate();
     seq.sync({
         //force: true
-        alter: true
+       // alter: true
     })
 } catch (error) {
     console.log(`connection Failed with database/n${error}`)
