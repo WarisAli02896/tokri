@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { seq } = require("../../../../utils/sequlize");
-const MailSync = require("../../mailSync");
 
 
 const Users = seq.define('Users', {
@@ -76,10 +75,32 @@ const Users = seq.define('Users', {
     type: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: 'Shop Keeper',
+        validate: {
+            notNull: {
+                msg: "Shop Keeper user type not defined"
+            }
+        }
     },
     verified: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false,
+        validate: {
+            notNull: {
+                msg: 'Shopkeeper verified can not be null'
+            }
+        }
+    },
+    is_deleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+        validate: {
+            notNull: {
+                msg: 'Shopkeeper deleted can not be null'
+            }
+        }
     }
 }, {
     timestamps: true,
@@ -96,19 +117,4 @@ const Users = seq.define('Users', {
     }
 });
 
-Users.hasMany(
-    MailSync,
-    {
-        as: 'mailSync',
-        foreignKey: 'user_id'
-    }
-);
-
-// Users.hasMany(
-//     Shops,
-//     {
-//         as: 'shops',
-//         foreignKey: 'user_id'
-//     }
-// )
 module.exports = Users;

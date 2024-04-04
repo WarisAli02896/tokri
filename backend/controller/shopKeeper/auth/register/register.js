@@ -53,7 +53,7 @@ exports.register_shopkeeper = async (req, res) => {
                             subject: email_verification_body.subject,
                             text: email_verification_body.text,
                             reason: `Account verification mail sent to shopkeeper/n ShopKeeper_id:${data.dataValues.shopKeeper_id}`,
-                            type: 'Keeper Account Verification',
+                            type: 'Shop Keeper Account Verification',
                             status: true
                         })
                             .then(async (mail) => {

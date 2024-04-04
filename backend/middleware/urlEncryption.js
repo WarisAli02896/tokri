@@ -16,7 +16,7 @@ exports.decrypt_Url = (encryptedText) => {
 }
 exports.encrypt = async (value) => {
     var jsonString = JSON.stringify(value);
-    var encryptString = crypt.AES.encrypt(jsonString, '2896').toString();
+    var encryptString = crypt.AES.encrypt(jsonString, process.env.SECRET_KEY).toString();
     await Update.create(
         {
             data: encryptString
@@ -41,7 +41,7 @@ exports.decrypt = async (encryptedText) => {
             return error;
         })
     const ciphertext = encryptedText.padEnd(32, '='); // Add padding if necessary
-    const decrypted = crypt.AES.decrypt(ciphertext, '2896').toString(crypt.enc.Utf8);
+    const decrypted = crypt.AES.decrypt(ciphertext, process.env.SECRET_KEY).toString(crypt.enc.Utf8);
     const decryptedData = JSON.parse(decrypted);
     return decryptedData;
 }

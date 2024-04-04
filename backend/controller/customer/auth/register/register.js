@@ -1,9 +1,11 @@
 const bcrypt = require('bcryptjs');
 const { StatusCodes } = require('http-status-codes');
-const { email_verification_body } = require('../../../data/objects/mail/mailBody');
-const { _sendMail } = require('../../../utils/send_email');
-const Users = require('../../../data/models/customer/auth/users');
-const MailSync = require('../../../data/models/mailSync');
+const { email_verification_body } = require('../../../../data/objects/mail/mailBody');
+const { _sendMail } = require('../../../../utils/send_email');
+const Users = require('../../../../data/models/customer/auth/users');
+const MailSync = require('../../../../data/models/mailSync');
+const { encrypt } = require('../../../../middleware/urlEncryption');
+const { save_mails } = require('../../../../middleware/saveMails');
 exports.register_User = async (req, res) => {
     const reqData = req.body;
 
@@ -16,7 +18,7 @@ exports.register_User = async (req, res) => {
                 data: {
                     errorMessage: 'Unable to create account',
                     errorCode: 'auth0000',
-                    Error:{
+                    Error: {
                         errorCode: error.status,
                         errorMessage: error.message,
                         error
@@ -37,9 +39,7 @@ exports.register_User = async (req, res) => {
                 email: reqData.email,
                 password: reqData.password,
                 phone: reqData.phone,
-                profile_picture: reqData.profile_picture,
-                verified: false,
-                type: reqData.type
+                profile_picture: reqData.profile_picture
             },
             attributes: { exclude: ['password'] }
         })
@@ -52,42 +52,21 @@ exports.register_User = async (req, res) => {
                         }
                     });
                 } else if (isCreated == true) {
+                    let id = await encrypt(data.user_id);
+                    email_verification_body.to = data.email;
+                    email_verification_body.text += `${process.env.BASE_URL}/user/verifyUser?id=${id}`;
+                    email_verification_body.reason = `Account verification mail sent to Customer/n user_id:${data.dataValues.user_id}`;
+                    email_verification_body.type = 'Customer Account Verification';
                     try {
-                        email_verification_body.to = data.email;
-                        email_verification_body.text = `${process.env.BASE_URL}/user/verifyUser?id=${data.user_id}&type=Customer`;
+                        email_verification_body.status = true;
                         await _sendMail(email_verification_body);
 
                         //saving status of mail
-                        const mail = await MailSync.create({
-                            mail_type: "Verification Account",
-                            user_id: data.user_id,
-                            status: "Synced"
-                        }, {
-                            attributes: { exclude: ['mail_id', 'user_id'] }
-                        })
-                            .then(async (mail) => {
-                                data.mail = mail.dataValues
-                            })
-
+                        var mail = await save_mails(email_verification_body);
+                        data.mail = mail;
                     } catch (error) {
-                        //log mail send failed in database and make it auto sync after some time
-                        // return res.status(error.status || StatusCodes.GATEWAY_TIMEOUT).json({
-                        //     data: {
-                        //         error: {
-                        //             errorMessage: "Verification mail sending failed"
-                        //         }
-                        //     }
-                        // })
-                        const mail = await MailSync.create({
-                            mail_type: "Verification Account",
-                            user_id: data.user_id,
-                            status: "Sync Failed"
-                        }, {
-                            attributes: { exclude: ['mail_id', 'user_id'] }
-                        })
-                            .then(async (mail) => {
-                                data.mail = mail.dataValues
-                            })
+                        email_verification_body.status = false;
+                        data.mail = await save_mails(email_verification_body);
                     }
 
                     return res.status(StatusCodes.OK || StatusCodes.GATEWAY_TIMEOUT).json({
@@ -101,10 +80,10 @@ exports.register_User = async (req, res) => {
                 }
             })
             .catch((err) => {
-                return res.status(err.status || 500).json({
+                return res.status(err.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                     data: {
                         errorMessage: "Account not created. Please try again",
-                        errorCode: "auth0005"
+                        errorCode: "auth0000"
                     }
                 });
             });
