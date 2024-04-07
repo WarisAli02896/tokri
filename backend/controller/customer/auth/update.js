@@ -5,6 +5,7 @@ const {
 } = require("../../../data/objects/customer/users");
 const Users = require("../../../data/models/customer/auth/users");
 
+//code for update_user  profile
 exports.update_user = async (req, res) => {
   const reqData = req.body;
 
@@ -106,7 +107,7 @@ exports.update_password = async (req, res) => {
               reqData.newpassword,
               genSaltSync(parseInt(process.env.SALT))
             );
-            ShopKeeper.update(
+            Users.update(
               {
                 password: reqData.newpassword,
               },

@@ -6,6 +6,7 @@ const Users = require('../../../../data/models/customer/auth/users');
 const MailSync = require('../../../../data/models/mailSync');
 const { encrypt } = require('../../../../middleware/urlEncryption');
 const { save_mails } = require('../../../../middleware/saveMails');
+
 exports.register_User = async (req, res) => {
     const reqData = req.body;
 
