@@ -1,4 +1,6 @@
 const ShopKeeper = require("../../../../data/models/shopKeeper/auth/shopKeeper");
+const { shopKeeper } = require("../../../../data/objects/shopKeeper/auth/shopKeeper");
+const { mapOutput } = require("../../../../middleware/lodash");
 const { decrypt } = require("../../../../middleware/urlEncryption");
 
 exports.verify_shop_keeper = async (req, res) => {
@@ -6,14 +8,14 @@ exports.verify_shop_keeper = async (req, res) => {
 
     reqData.id = await decrypt(reqData.id);
 
-    await ShopKeeper.update(
+    await ShopKeeper.findOne(
         {
-            verified: true
-        }, {
-        where: {
-            shopKeeper_id: reqData.id
+            where: {
+                shopkeeper_id: reqData.id
+            }
         }
-    }
     )
-    .then(async)
+    .then(async(data)=>{
+        let shopkeeper = mapOutput(data, shopKeeper);
+    })
 }

@@ -10,7 +10,7 @@ router.post("/shopkeeper/register", register_shopkeeper);
 router.put('/shopkeeper/verify', verify_shop_keeper);
 router.post('/shopkeeper/login', login_shopKeeper);
 router.put('/shopkeeper/update', verifyAccessToken, update_shopkeeper);
-router.put('/shopkeeper/changepassword',verifyAccessToken,update_password);
+router.put('/shopkeeper/changepassword', verifyAccessToken, update_password);
 router.put('/shopkeeper/verify/email', verifyAccessToken, verify_update_email);
 router.put('/shopkeeper/update/email', update_email);
 
