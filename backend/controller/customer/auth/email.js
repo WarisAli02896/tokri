@@ -9,6 +9,109 @@ const Mail = require("nodemailer/lib/mailer");
 const { _sendMail } = require("../../../utils/send_email");
 const Update = require("../../../data/models/sync/update");
 
+//to verify update email
+exports.verify_update_email = async (req, res) => {
+  const reqData = req.body;
+
+  if (reqData.new_email != null) {
+    //Encrypt user_id, old_email, new_email for creating querry params
+    update_email.id = reqData.User.user_id;
+    update_email.email = reqData.User.email;
+    update_email.new_email = reqData.new_email;
+    const url_path = encrypt(update_email);
+
+    //send update data to update table
+    await Update.create({
+      data: url_path,
+    })
+      .then(async (data) => {
+        try {
+          //set mail body
+          update_email_verification_body.to = reqData.User.email;
+          //set according to new API
+          update_email_verification_body.text += `/n${process.env.BASE_URL}/customer/update/email?set=${data.dataValues.id}`;
+          await _sendMail(update_email_verification_body);
+
+          await Mail.create({
+            from: update_email_verification_body.from,
+            to: update_email_verification_body.to,
+            subject: update_email_verification_body.subject,
+            text: update_email_verification_body.text,
+            reason: `Verify new email address updated on user/n user_id:${reqData.User.user_id}`,
+            type: "New email verification",
+            status: true,
+          })
+            .then(async (mail) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010",
+                },
+              });
+            })
+            .catch(async (error) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010",
+                },
+              });
+            });
+        } catch (error) {
+          await Mail.create({
+            from: update_email_verification_body.from,
+            to: update_email_verification_body.to,
+            subject: update_email_verification_body.subject,
+            text: update_email_verification_body.text,
+            reason: `Verify new email address updated on user /n user_id:${-reqData.User.user_id}`,
+            type: "New email verification",
+            status: false,
+          })
+            .then(async (mail) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010",
+                },
+              });
+            })
+            .catch(async (error) => {
+              return res.status(StatusCodes.OK).json({
+                data: {
+                  responseMessage:
+                    "Profile updated successfully. Check mail on provided email address to verify your new email address",
+                  responseCode: "auth0010",
+                },
+              });
+            });
+        }
+      })
+      .catch(async (error) => {
+        return res.status(StatusCodes).json({
+          data: {
+            errorMessage: "Email can not update please try again",
+            errorCode: "auth0000",
+            Error: {
+              errorMessage: error.message,
+              errorCode: error.status,
+              error,
+            },
+          },
+        });
+      });
+  } else {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      data: {
+        errorMessage: "No new email provided",
+        errorCode: "auth0012",
+      },
+    });
+  }
+};
+
 //code to update the email
 exports.update_email = async (req, res) => {
   const reqData = req.query;
@@ -90,41 +193,3 @@ exports.update_email = async (req, res) => {
       });
     });
 };
-
-exports.verify_update_email = async(req,res)=>{
-  const reqData= req.body;
-
-  if(reqData.new_email != null){
-     //Encrypt user_id, old_email, new_email for creating querry params
-     const path =encrypt(update_email);
-     update_email.id = reqData.User.user_id;
-     update_email.email = reqData.User.email;
-     update_email.new_email = reqData.new_email;
-
-    await Update.create({
-      data: path,
-    })
-    .then(async (data) =>{
-      try {
-        //seting mail body
-        update_email_verification_body.to = reqData.User.email;
-        //seting it according to new API
-        update_email_verification_body.text += `/n${process.env.BASE_URL}/customer/update/email?set=${data.dataValues.id}`;
-        await _sendMail(update_email_verification_body);
-
-        await Mail.create({
-          from: update_email_verification_body.from,
-          to: update_email_verification_body.to,
-          subject: update_email_verification_body.subject,
-          text: update_email_verification_body.text,
-          reason: `Verify new email address updated on User/n user_id:${reqData.User.user_id}`,
-          type: "New email verification",
-          status:true,
-        })
-      }
-  })
-  
-}
-
- };
-
