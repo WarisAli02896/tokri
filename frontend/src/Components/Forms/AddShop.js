@@ -15,8 +15,10 @@ const AddShop = () => {
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (e && e.target) {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      }
   };
 
   const handlePhotoUpload = (e) => {

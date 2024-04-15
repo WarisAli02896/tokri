@@ -2,7 +2,20 @@
   max-width: 800px; /* Set maximum width for the table container */
   margin: 0 auto; /* Center the table container */
 }
+.table-header {
+  display: flex;
+  justify-content: space-between; /* Align items with space between them */
+  align-items: center; /* Vertically center items */
+  margin-bottom: 10px;
+}
 
+.search-bar {
+  flex: 1; /* Take up remaining space */
+}
+
+.add-button {
+  margin-left: auto; /* Move button to the right */
+}
 .table {
   width: 100%;
   border-collapse: collapse;

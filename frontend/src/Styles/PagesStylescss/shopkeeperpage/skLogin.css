@@ -1,0 +1,43 @@
+.login-page {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .logopic,
+  .loginformcomp {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .logopic {
+    text-align: center;
+  }
+  
+  .logopic img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+  }
+  
+  .loginformcomp {
+    max-width: 400px; /* Adjust the width of the login form */
+    padding: 40px;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .login-page {
+      flex-direction: column-reverse; /* Reverse the order for smaller screens */
+      align-items: center;
+    }
+  
+    .logopic,
+    .loginformcomp {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  

@@ -18,7 +18,7 @@ const LoginForm = ({ showRememberMe, showForgotPassword, showCreateAccountButton
       return;
     }
 
-    const userRole = 'admin';
+    const userRole = 'Admin';
     navigate(`/${userRole}`);
   };
 

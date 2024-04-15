@@ -6,5 +6,5 @@
   { "id": 5, "name": "gul", "Email": "gul3@gmail.com" ,"OwnerName":"gul " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit" },
   { "id": 6, "name": "falak", "Email": "falak4353@gmail.com" ,"OwnerName":"falak " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
   { "id": 7, "name": "hina", "Email":"hina3@gmail.com" ,"OwnerName":"hina " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"},
-  { "id": 8, "name": "sana", "Email":"sana3@gmail.com","OwnerName":"sana " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "Action":"Edit"}
+  { "id": 8, "name": "sana", "Email":"sana3@gmail.com","OwnerName":"sana " ,"CNIC": "45203-6454798-0 " , "NTN": 500054 , "Area":"civil" , "Status":" Accepted" , "city": "khairpur", "Action":"Edit"}
 ]

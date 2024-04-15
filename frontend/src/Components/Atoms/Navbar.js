@@ -47,7 +47,7 @@ const getNavbarMenu = (userRole) => {
     case 'shopkeeper':
       return [
         { label: 'Home', link: '/shopkeeper' },
-        { label: 'Shop', link: '/shop' },
+        { label: 'Shop', link: '/shops' },
         { label: 'Product For Sell', link: '/pfs'},
         { label: 'Product For Rent', link: '/pfr'},
         { label: 'Order', link: '/orders'},

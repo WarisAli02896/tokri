@@ -1,151 +1,121 @@
 import React, { useState } from 'react';
+import DropdownButton from '../Atoms/DropdownButton';
+import Button from '../Atoms/Button';
 import InputField from '../Atoms/Inputfield';
-import "../../Styles/ComponentStylecss/shoprequestform.css";
+import '../../Styles/ComponentStylecss/shoprequestform.css';
 
-// Create a ref outside the component
-const fileInputRef = React.createRef();
-
-const ShopRequestForm = ({ showRegisterAs, showNTNNumber, showCNICNumber, showShopPhotos, showCNICPhotos }) => {
+const ShopRequestForm = () => {
+  // State variables for form fields
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    cnic: '',
-    ntn: '',
-    city: '',
-    area: '',
-    address: '',
+    barcode: '',
+    name: '',
+    size: '',
+    quantity: '',
+    price: '',
     photos: [],
-    userType: '',
   });
+
+  const [items, setItems] = useState([]); // State variable for items
+  const [itemText, setItemText] = useState(''); // State variable for displaying added items
 
   const handleInputChange = (e) => {
     if (e && e.target) {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
     }
   };
+  
 
   const handlePhotoUpload = (e) => {
-    // Check if e is defined
-  if (e && e.target) {
-    const photos = Array.from(e.target.files);
-    setFormData({ ...formData, photos });
-  }};
-
-  const handleUserTypeChange = (e) => {
-    const { name, checked } = e.target;
-    if (checked) {
-      setFormData({ ...formData, userType: name });
-    } else {
-      setFormData({ ...formData, userType: '' });
+    if (e && e.target) {
+      const photos = Array.from(e.target.files);
+      setFormData({ ...formData, photos });
     }
-  };
-
-  // Handle face structure click
-  const handleFaceStructureClick = () => {
-    // Trigger the click event of the hidden file input
-    fileInputRef.current.click();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to handle form submission (e.g., API call)
     console.log('Form submitted:', formData);
   };
 
+  const dropdownOptions = [
+    { value: 'cloths', label: 'Cloths' },
+    
+  ];
+
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleSelectOption = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  const handleAddItem = () => {
+    const { size, quantity, price } = formData;
+    const newItem = { id: Date.now(), size, quantity, price }; // Add unique id to each item
+    const newItems = [...items, newItem];
+    setItems(newItems);
+    // Update itemText state if needed
+    setItemText(itemText ? `${itemText}\nSize: ${size}, Quantity: ${quantity}, Price: ${price}` : `Size: ${size}, Quantity: ${quantity}, Price: ${price}`);
+    // Reset fields
+    setFormData({ ...formData, size: '', quantity: '', price: '' });
+  };
+
+  const handleDeleteItem = (itemId) => {
+    const updatedItems = items.filter(item => item.id !== itemId);
+    const updatedItemText = updatedItems.map(item => `Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}`).join('\n');
+    setItems(updatedItems);
+    setItemText(updatedItemText);
+  };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-container">
-        {/* Left side: User picture and options */}
-        <div className="left-section">
-          <div className="user-picture" onClick={handleFaceStructureClick}>
-            {/* Placeholder face structure */}
-            <div style={{ width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', backgroundColor: '#ddd', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              {/* Add face structure or image here */}
-              {formData.photos.length > 0 ? (
-                <img
-                  src={URL.createObjectURL(formData.photos[0])}
-                  alt="User"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              ) : (
-                <span role="img" aria-label="User Face" style={{ fontSize: '48px' }}>😀</span>
-              )}
+    <div className="shop-request-form">
+      <form onSubmit={handleSubmit}>
+        <div className="left-side">
+          <div className="input-row">
+            <label>
+              Barcode:
+              <InputField type="text" name="barcode" value={formData.barcode} onChange={handleInputChange} required />
+            </label>
+            <label>
+              Name:
+              <InputField type="text" name="name" value={formData.name} onChange={handleInputChange} required />
+            </label>
+            <label>
+              Category:
+              <DropdownButton options={dropdownOptions} selectedOption={selectedOption} onSelectOption={handleSelectOption} />
+            </label>
+          </div>
+          <div className="input-row">
+  <label>
+    Size:
+    <InputField type="text" name="size" value={formData.size} onChange={handleInputChange} required />
+  </label>
+  <label>
+    Quantity:
+    <InputField type="text" name="quantity" value={formData.quantity} onChange={handleInputChange} required />
+  </label>
+  <label>
+    Price:
+    <InputField type="text" name="price" value={formData.price} onChange={handleInputChange} required />
+  </label>
+  <Button type="button" onClick={handleAddItem}>Add</Button>
+</div>
+
+
+          <div className="added-items">
+            <label>Added Items:</label>
+            {items.map(item => (
+            <div key={item.id}>
+              <p>{`Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}`}</p>
+              <button onClick={() => handleDeleteItem(item.id)}>X</button>
             </div>
-            {/* Hidden file input */}
-            <input
-              type="file"
-              id="photoInput"
-              name="photos"
-              ref={fileInputRef}
-              onChange={handlePhotoUpload}
-              style={{ display: 'none' }}
-            />
+          ))}
           </div>
         </div>
-
-        {/* Right side: User information */}
-        <div className="right-section">
-        {showRegisterAs && <div>
-            <label>Register as:</label><br />
-            <input type="checkbox" name="user" checked={formData.userType === 'user'} onChange={handleUserTypeChange} />
-            <label htmlFor="user"> User</label>
-            <input type="checkbox" name="shopkeeper" checked={formData.userType === 'shopkeeper'} onChange={handleUserTypeChange} />
-            <label htmlFor="shopkeeper"> Shopkeeper</label>
-          </div> }
-          <div>
-            <label>First Name:</label>
-            <InputField type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
-          </div>
-          <div>
-            <label>Last Name:</label>
-            <InputField type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
-          </div>
-          <div>
-            <label>Email:</label>
-            <InputField type="email" name="email" value={formData.email} onChange={handleInputChange} required />
-          </div>
-          <div>
-            <label>Phone No:</label>
-            <InputField type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required />
-          </div>
-          {showCNICNumber && <div>
-            <label>CNIIC No:</label>
-            <InputField type="text" name="cniic" value={formData.cnic} onChange={handleInputChange} required />
-          </div>}
-          {showNTNNumber && <div>
-            <label>NTN No:</label>
-            <InputField type="text" name="ntn" value={formData.ntn} onChange={handleInputChange} required />
-          </div>}
+        <div className="right-side">
+          <label>Upload Picture: <input type="file" accept="image/*" onChange={handlePhotoUpload} /></label>
         </div>
-
-        {/* Address section */}
-        <div className="address-section">
-          <div>
-            <label>City:</label>
-            <InputField type="text" name="city" value={formData.city} onChange={handleInputChange} required />
-          </div>
-          <div>
-            <label>Area:</label>
-            <InputField type="text" name="area" value={formData.area} onChange={handleInputChange} required />
-          </div>
-          <div>
-            <label>Address:</label>
-            <textarea name="address" value={formData.address} onChange={handleInputChange} required />
-          </div>
-          {showShopPhotos && <div>
-            <label>Shop Photos:</label>
-            <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>}
-          {showCNICPhotos && <div>
-            <label>CNIC Photos:</label>
-            <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
-          </div>}
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

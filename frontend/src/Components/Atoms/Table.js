@@ -57,19 +57,21 @@ const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
 
   return (
     <div className="table-container">
-      {showSearchBar && <SearchBar onSearch={setSearchTerm} /> }
-      {showDropdown && <DropdownButton buttonText="Dropdown" options={dropdownOptions} /> }
+       <div className='table-header'>
+      {showDropdown && <DropdownButton buttonText="Dropdown" options={dropdownOptions} className="dropdown" /> }
+      {showSearchBar && <SearchBar onSearch={setSearchTerm} className="search-bar" /> }
       {showAddButton && <Button 
-      label="Add"
-      onClick={handleAddButtonClick}
-      type="button"
-      className="add-button"
+        label="Add"
+        onClick={handleAddButtonClick}
+        type="button"
+        className="add-button"
       /> }
+    </div>
+     
       <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+        
             {headers.map((header, index) => (
               <th key={index}>{header}</th>
             ))}
@@ -79,8 +81,7 @@ const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
         <tbody>
         {filteredData.map((item, rowIndex) => (
             <tr key={rowIndex}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
+              
               {headers.map((header, cellIndex) => (
                 <td key={cellIndex}>{item[header]}</td> 
               ))}

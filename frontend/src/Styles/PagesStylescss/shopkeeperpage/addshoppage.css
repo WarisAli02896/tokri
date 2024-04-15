@@ -1,33 +1,65 @@
-/* Assuming 'shopformpage' is the main container class */
-.addshop {
-    /* Add general styles for the main container */
-   justify-content: center;
-   display: flex;
-   
-    align-items: center;
-    height: 100vh; /* Adjust as needed */
-  }
+.add-shop-page{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+   border-radius: 20px;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(1, 17, 31, 0.1);
+  height: max-content;
+  width: 100vh;
   
-  /* Assuming 'buttons' is the class for the container that wraps ReusableButtons */
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px; /* Adjust as needed */
-    color: rgb(252, 248, 248);
-    padding: 20px 60px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
-    font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content:space-around;
+ 
+  /* margin-top: 10px; */
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 0px;
+  
+}
+
+/* .submit-button:hover {
+  background-color: #4CAF50;
+} */
+
+/* .accept-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.reject-button {
+  background-color: #f44336;
+  color: white;
+} */
+
+/* Responsive Styling */
+@media only screen and (max-width: 600px) {
+  .add-shop-page{
+    padding: 10px;
   }
-    
-    /* Add additional styles for responsiveness if needed */
-    @media (max-width: 768px) {
-      /* Styles for screens with a maximum width of 768px (adjust as needed) */
-      .shopformpage {
-        padding: 20px; /* Add some padding for smaller screens */
-      }
-    }
-    
+
+  .add-shop-page h1 {
+    font-size: 24px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .submit-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <div className='login-page'>
       <div className='loginformcomp'>
-    <LoginForm showRememberMe/>
+    <LoginForm showRememberMe />
     </div>
       <div className='logopic'>
       <img src={logo}  alt='Logo'/>
