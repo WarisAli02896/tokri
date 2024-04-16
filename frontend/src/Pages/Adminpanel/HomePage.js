@@ -7,7 +7,7 @@ export default function HomePage({userRole}) {
     <div>
         <Navbar  userRole={userRole}/>
           <div className='admin-content'>
-            <h2> Hello Admin</h2>
+            <h2> Admin</h2>
           </div>
     </div>
   )
