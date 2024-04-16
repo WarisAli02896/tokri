@@ -13,7 +13,7 @@ router.get("/user/verify", verify_user);
 router.post("/user/login", login);
 router.put("/user/update", verifyAccessToken, update_user);
 router.put("/user/changepassword", verifyAccessToken, update_password);
-router.put('/user/verify/email', verifyAccessToken, varify_update_email);
+// router.put('/user/verify/email', verifyAccessToken, varify_update_email);
 router.put('/user/update/email', update_email);
 
 module.exports = router;

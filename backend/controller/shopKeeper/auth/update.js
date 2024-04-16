@@ -288,95 +288,95 @@ exports.verify_update_email = async (req, res) => {
 exports.update_password = async (req, res) => {
   const reqData = req.body;
   await ShopKeeper.findOne({
-    where: 
+    where:
     {
       shopKeeper_id: reqData.User.shopKeeper_id
 
     },
   })
   //condition to chech newpass and confirm pass are same
-  if (reqData.newpassword == reqData.confirmpassword){
+  if (reqData.newpassword == reqData.confirmpassword) {
     await ShopKeeper.findOne({
       where:
-          {
-            shopKeeper_id: reqData.User.shopKeeper_id,
-            //password: reqData.password,
-          },
-     })
-      .then(async(data)=>{
-       if (await bcrypt.compare(reqData.password, data.dataValues.password)) {
+      {
+        shopKeeper_id: reqData.User.shopKeeper_id,
+        //password: reqData.password,
+      },
+    })
+      .then(async (data) => {
+        if (await bcrypt.compare(reqData.password, data.dataValues.password)) {
           try {
-              reqData.newpassword = hashSync(reqData.newpassword, genSaltSync(parseInt(process.env.SALT)));
-              ShopKeeper.update(
+            reqData.newpassword = hashSync(reqData.newpassword, genSaltSync(parseInt(process.env.SALT)));
+            ShopKeeper.update(
               {
                 password: reqData.newpassword,
-              },{
-                where:
-                {
-                  shopKeeper_id: reqData.User.shopKeeper_id
-                }
+              }, {
+              where:
+              {
+                shopKeeper_id: reqData.User.shopKeeper_id
               }
+            }
             ).then(async (shop_Keeper) => {
               return res.status(StatusCodes.OK).json({
                 data: {
                   responseMessage: " Password has successfully updated",
                   responseCode: "auth00"
-                
+
                 },
               });
             })
-            .catch(async (error) => {
-              return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                data: {
-                  errorMessage: "Password update failed please try again",
-                  errorCode: "auth0000",
-                  Error: {
-                    message: error.message,
-                    error,
+              .catch(async (error) => {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                  data: {
+                    errorMessage: "Password update failed please try again",
+                    errorCode: "auth0000",
+                    Error: {
+                      message: error.message,
+                      error,
+                    },
                   },
-                },
+                });
               });
-            });
           }
           catch (error) {
-              return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                  data: {
-                      errorMessage: "Unable to update, Please try again",
-                       errorCode: "auth000",
-                       logs: {
-                          message: error.message,
-                          error
-                      }
-                  }
-              });
-          }
-        }else if (!await bcrypt.compare(reqData.password, data.dataValues.password)) {
-          return res.status(StatusCodes.UNAUTHORIZED).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
               data: {
-                  errorMessage: "Entered incorrect password",
-                  errorCode: "auth0018"
-              }
-          });
-      }
-    })
-    .catch(async (error) => {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-          data: {
-              errorMessage: "Account not Created! Please try again/n",
-              errorCode: "auth0002",
-              error: {
+                errorMessage: "Unable to update, Please try again",
+                errorCode: "auth000",
+                logs: {
                   message: error.message,
                   error
+                }
               }
+            });
           }
+        } else if (!await bcrypt.compare(reqData.password, data.dataValues.password)) {
+          return res.status(StatusCodes.UNAUTHORIZED).json({
+            data: {
+              errorMessage: "Entered incorrect password",
+              errorCode: "auth0018"
+            }
+          });
+        }
       })
-  })
+      .catch(async (error) => {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          data: {
+            errorMessage: "Account not Created! Please try again/n",
+            errorCode: "auth0002",
+            error: {
+              message: error.message,
+              error
+            }
+          }
+        })
+      })
   } else if (reqData.password != reqData.confirmPassword) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
-        data: {
-            errorMessage: "Password and Confirm Password does not match",
-            errorCode: "auth0006"
-        }
+      data: {
+        errorMessage: "Password and Confirm Password does not match",
+        errorCode: "auth0006"
+      }
     })
   }
 }

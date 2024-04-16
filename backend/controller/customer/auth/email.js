@@ -1,9 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const Users = require("../../../data/models/customer/auth/users");
 const { decrypt, encrypt } = require("../../../middleware/urlEncryption");
-const {
-  update_email_verification_body,
-} = require("../../../data/objects/mail/mailBody");
+const { update_email_verification_body } = require("../../../data/objects/mail/mailBody");
 const { update_email } = require("../../../data/objects/urls/encryptPath");
 const Mail = require("nodemailer/lib/mailer");
 const { _sendMail } = require("../../../utils/send_email");
@@ -133,7 +131,7 @@ exports.update_email = async (req, res) => {
   await Users.findOne({
     where: {
       user_id: decryptData.id,
-      email: decryptData.email,
+      email: decryptData.email
     },
     attributes: {
       exclude: ["passward"],
@@ -193,3 +191,41 @@ exports.update_email = async (req, res) => {
       });
     });
 };
+
+// exports.verify_update_email = async (req, res) => {
+//   const reqData = req.body;
+
+//   if (reqData.new_email != null) {
+//     //Encrypt user_id, old_email, new_email for creating querry params
+//     const path = encrypt(update_email);
+//     update_email.id = reqData.User.user_id;
+//     update_email.email = reqData.User.email;
+//     update_email.new_email = reqData.new_email;
+
+//     await Update.create({
+//       data: path,
+//     })
+//       .then(async (data) => {
+//         try {
+//           //seting mail body
+//           update_email_verification_body.to = reqData.User.email;
+//           //seting it according to new API
+//           update_email_verification_body.text += `/n${process.env.BASE_URL}/customer/update/email?set=${data.dataValues.id}`;
+//           await _sendMail(update_email_verification_body);
+
+//           await Mail.create({
+//             from: update_email_verification_body.from,
+//             to: update_email_verification_body.to,
+//             subject: update_email_verification_body.subject,
+//             text: update_email_verification_body.text,
+//             reason: `Verify new email address updated on User/n user_id:${reqData.User.user_id}`,
+//             type: "New email verification",
+//             status: true,
+//           })
+//         }
+//   })
+
+//   }
+
+// };
+

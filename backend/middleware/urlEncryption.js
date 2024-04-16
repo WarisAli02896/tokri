@@ -21,9 +21,10 @@ exports.encrypt = async (value) => {
         {
             data: encryptString
         }
-    ).then(async (data) => {
-        encryptString = data.dataValues.id
-    })
+    )
+        .then(async (data) => {
+            encryptString = data.dataValues.id
+        })
         .catch(async (error) => {
             return error
         })
