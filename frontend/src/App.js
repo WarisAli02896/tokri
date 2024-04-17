@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Orders from './Pages/Shopkeeperpanel/Orders';
-import HomePage from './Pages/Adminpanel/HomePage';
-import ShopPage from './Pages/Adminpanel/ShopPage';
-import ShopFormPage from './Pages/Adminpanel/ShopFormPage';
-import ProductForRentPage from './Pages/Shopkeeperpanel/ProductForRentPage';
-import AddShopPage from './Pages/Shopkeeperpanel/AddShopPage';
-import ProductSellPage from './Pages/Shopkeeperpanel/ProductSellPage'
-import Shopspage from './Pages/Shopkeeperpanel/Shopspage'
-import AdminLogin from './Pages/Adminpanel/AdminLogin.js';
-import SkLogin from './Pages/Shopkeeperpanel/SkLogin.js';
-import CustomerLogin from './Pages/CustomerPanel/CustomerLogin.js';
+import Orders from './Shopkeeper Panel/Pages/Orders.js';
+import HomePage from './Admin Panel/Pages/HomePage.js';
+import ShopPage from './Admin Panel/Pages/ShopPage.js';
+import ShopFormPage from './Admin Panel/Pages/ShopFormPage.js';
+import ProductForRentPage from './Shopkeeper Panel/Pages/ProductForRentPage.js';
+import AddShopPage from './Shopkeeper Panel/Pages/AddShopPage.js';
+import ProductSellPage from './Shopkeeper Panel/Pages/ProductSellPage.js';
+import Shopspage from './Shopkeeper Panel/Pages/Shopspage.js';
+import AdminLogin from './Admin Panel/Pages/AdminLogin.js';
+import SkLogin from './Shopkeeper Panel/Pages/SkLogin.js';
+import CustomerLogin from './Customer Panel/Pages/CustomerLogin.js';
 import CreateAccountPage from './Pages/CreateAccountPage.js';
 
 // import '../src/App.css';

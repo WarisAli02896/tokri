@@ -8,7 +8,7 @@ import '../../Styles/PagesStylescss/adminpage/shoppage.css';
 const ShopPage = () => {
   // Defining the table headers
   const tableHeaders = [
-    'id', 'name','Email', 'OwnerName', 'CNIC', 'NTN', 'Area', 'Status'
+    'id', 'Name','Email', 'OwnerName', 'CNIC', 'NTN', 'Area', 'Status'
   ];
 
   return (
