@@ -39,9 +39,10 @@ const ShopRequestForm = () => {
   };
 
   const dropdownOptions = [
-    { value: 'cloths', label: 'Cloths' },
-    
+    { text: 'Cloths', value: 'cloths' },
+    // Add more options if needed
   ];
+  
 
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -79,11 +80,12 @@ const ShopRequestForm = () => {
               Name:
               <InputField type="text" name="name" value={formData.name} onChange={handleInputChange} required />
             </label>
-            <label>
+           
+          </div>
+          <label>
               Category:
               <DropdownButton options={dropdownOptions} selectedOption={selectedOption} onSelectOption={handleSelectOption} />
             </label>
-          </div>
           <div className="input-row">
   <label>
     Size:
