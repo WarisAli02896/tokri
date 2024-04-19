@@ -1,22 +1,15 @@
 .shop-page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Set the height to 100% of the viewport height */
-}
-
-.container {
-  flex: 1; /* Make the container take up the available space */
-
-  display: flex;
-
-  justify-content: center; /* Center the table horizontally */
-  align-items: center; /* Center the table vertically */
-}
-
-/* Add additional styles for responsiveness if needed */
-@media (max-width: 768px) {
-  /* Styles for screens with a maximum width of 768px (adjust as needed) */
-  .shop-page {
-    padding: 20px; /* Add some padding for smaller screens */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the height to 100% of the viewport height */
   }
-}
+  
+  /* Add additional styles for responsiveness if needed */
+  @media (max-width: 768px) {
+    /* Styles for screens with a maximum width of 768px (adjust as needed) */
+    .shop-page {
+      padding: 20px; /* Add some padding for smaller screens */
+    }
+  }
+  
