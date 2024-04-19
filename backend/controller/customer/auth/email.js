@@ -25,7 +25,7 @@ exports.verify_update_email = async (req, res) => {
       .then(async (data) => {
         try {
           //set mail body
-          update_email_verification_body.to = reqData.User.email;
+          update_email_verification_body.to = reqData.User.new_email;
           //set according to new API
           update_email_verification_body.text += `/n${process.env.BASE_URL}/customer/update/email?set=${data.dataValues.id}`;
           await _sendMail(update_email_verification_body);
