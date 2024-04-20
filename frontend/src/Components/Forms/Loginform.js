@@ -1,24 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Atoms/Button';
 import '../../Styles/ComponentStylecss/loginform.css'; // Import the CSS file
 
 const LoginForm = ({ showRememberMe, showForgotPassword, showCreateAccountButton }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+
+ 
+  
 
   const handleLogin = () => {
     // Implement your login logic here
     console.log('Logging in...');
     //validations
-    if (!username.trim() || !password.trim()) {
+    if (!email.trim() || !password.trim()) {
       alert('Please enter both username and password.');
       return;
     }
-
     const userRole = 'Admin';
+
     navigate(`/${userRole}`);
   };
 
@@ -35,8 +38,8 @@ const LoginForm = ({ showRememberMe, showForgotPassword, showCreateAccountButton
   return (
     <div className="login-form-container">
       <label>
-        Username:
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        Email:
+        <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
 
       <label>

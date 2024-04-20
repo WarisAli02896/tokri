@@ -55,6 +55,7 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
     console.log('Form submitted:', formData);
   };
 
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-container">
