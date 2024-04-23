@@ -17,3 +17,4 @@ exports.shopKeeper = {
 }
 
 exports.update_accepted_data = ["firstname", "lastname", "phone", "profile_picture"]
+exports.delete_profile = ["is_deleted"]

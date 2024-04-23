@@ -30,7 +30,7 @@ exports.verify_update_email = async (req, res) => {
           update_email_verification_body.text += `/n${process.env.BASE_URL}/customer/update/email?set=${data.dataValues.id}`;
           await _sendMail(update_email_verification_body);
 
-          await Mail.create({
+          await Mail.create({ 
             from: update_email_verification_body.from,
             to: update_email_verification_body.to,
             subject: update_email_verification_body.subject,
