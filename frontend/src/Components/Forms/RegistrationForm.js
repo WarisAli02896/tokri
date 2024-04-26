@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import InputField from '../Atoms/Inputfield';
-import "../../Styles/ComponentStylecss/createaccountform.css";
+import '../../Styles/ComponentStylecss/registrationform.css';
 
 // Create a ref outside the component
 const fileInputRef = React.createRef();
 
-const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) => {
+const RegistrationForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    password:'',
+    confirmPassword:'',
     phone: '',
     cnic: '',
-    city: '',
-    area: '',
-    address: '',
+    ntn:'',
     photos: [],
     userType: '',
   });
@@ -51,7 +51,11 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to handle form submission (e.g., API call)
+    if (formData.password !== formData.confirmPassword)
+    {
+      console.log("Password don't match");
+      return;
+    }
     console.log('Form submitted:', formData);
   };
 
@@ -118,6 +122,14 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
                 <InputField type="email" name="email" value={formData.email} onChange={handleInputChange} required />
               </div>
               <div>
+                <label>Password:</label>
+                <InputField type="password" name="password" value={formData.password} onChange={handleInputChange} required />
+              </div>
+              <div>
+                <label>Confirm Password:</label>
+                <InputField type="password" name="password" value={formData.confirmPassword} onChange={handleInputChange} required />
+              </div>
+              <div>
                 <label>Phone No:</label>
                 <InputField type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required />
               </div>
@@ -133,7 +145,7 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
 
         {/* Address section */}
         <div className="address-section">
-          <div>
+          {/* <div>
             <label>City:</label>
             <InputField type="text" name="city" value={formData.city} onChange={handleInputChange} required />
           </div>
@@ -144,9 +156,12 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
           <div>
             <label>Address:</label>
             <textarea name="address" value={formData.address} onChange={handleInputChange} required />
-          </div>
+          </div> */}
           {showCNICPhotos && formData.userType !== 'user' && <div>
-            <label>CNIC Photos:</label>
+            <label>CNIC Front:</label>
+            <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
+          
+            <label>CNIC Back:</label>
             <InputField type="file" name="photos" onChange={handlePhotoUpload} multiple />
           </div>}
         </div>
@@ -155,4 +170,4 @@ const CreateAccountForm = ({ showRegisterAs, showCNICNumber, showCNICPhotos }) =
   );
 };
 
-export default CreateAccountForm;
+export default RegistrationForm;

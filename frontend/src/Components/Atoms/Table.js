@@ -5,10 +5,11 @@ import SearchBar from '../../Components/Atoms/SearchBar';
 import Button from '../../Components/Atoms/Button'; 
 import DropdownButton from './DropdownButton';
 
-const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
+const Table = ({ headers, showAddButton, showSearchBar, showDropdown, userRole }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,8 +44,14 @@ const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
     filterData(searchTerm);
   }, [filterData, searchTerm]);
 
-  const handleActionClick = () => {
-    navigate('/srp');
+  const handleEditActionClick = () => {
+    if (userRole === 'admin') {
+      navigate('/ep');
+    } else if (userRole === 'shopkeeper') {
+      navigate('/addshop');
+    } else if (userRole === 'customer') {
+      navigate('/customer');
+    }
   };
 
   const dropdownOptions = [
@@ -52,8 +59,14 @@ const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
   ];
 
   const handleAddButtonClick = () => {
-    console.log('Add button clicked');
-  }
+    if (userRole === 'shopkeeper') {
+      if (currentPage === 'shops') {
+        navigate('/addshop');
+      } else if (currentPage === 'pfs') {
+        navigate('/pfsp');
+      }
+    }
+  };
 
   return (
     <div className="table-container">
@@ -88,7 +101,7 @@ const Table = ({ headers, showAddButton, showSearchBar, showDropdown }) => {
                <td>
                 <Button
                   label="Edit"
-                  onClick={handleActionClick}
+                  onClick={handleEditActionClick}
                   type="button"
                   className="edit-button"
                 />

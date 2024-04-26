@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '../../Components/Atoms/Table'; // Importing the Table component
 import Navbar from '../../Components/Atoms/Navbar'; // Importing the Navbar component
 
@@ -10,15 +10,20 @@ const ShopPage = () => {
   const tableHeaders = [
     'id', 'Name','Email', 'OwnerName', 'CNIC', 'NTN', 'Area', 'Status'
   ];
+  const [currentPage, setCurrentPage] = useState('shops');
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   return (
     <div className='shop-page'>
       {/* Rendering the Navbar component with the userRole prop set to "admin" */}
-      <Navbar userRole="admin"/>
+      <Navbar userRole="admin" onPageChange = {handlePageChange}/>
 
       <div className="container">
         {/* Rendering the Table component with the required props */}
-        <Table
+        <Table userRole="admin"
+        currentPage={currentPage}
           headers={tableHeaders}
           showSearchBar
         

@@ -1,13 +1,13 @@
 import React from 'react';
 import Table from '../../Components/Atoms/Table';
 import Navbar from '../../Components/Atoms/Navbar';
-const ProductSellPage = () => {
-  const tableHeaders = [  'id', 'name', 'city', 'Area', 'Status'];
+const ShopsPage = () => {
+  const tableHeaders = [  'id', 'Name', 'City', 'Area', 'Status'];
   return (
     <div className='shop-page'>
       <Navbar userRole="shopkeeper"/>
       <div className="container">
-        <Table headers={tableHeaders} 
+        <Table userRole="shopkeeper" headers={tableHeaders} 
         showSearchBar
         showAddButton/>
       </div>
@@ -15,4 +15,4 @@ const ProductSellPage = () => {
   );
 }
 
-export default ProductSellPage;
+export default ShopsPage;

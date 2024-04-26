@@ -1,29 +1,27 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../Components/Atoms/Navbar';
-import AddShop from '../../Components/Forms/AddShop';
-import Button from '../../Components/Atoms/Button';
+import Button from '../Components/Atoms/Button';
+import '../Styles/registrationpage.css';
+import RegistrationForm from '../Components/Forms/RegistrationForm';
 
-import '../../Styles/PagesStylescss/shopkeeperpage/addshoppage.css'
-
-const AddShopPage = () => {
+const RegistrationPage = () => {
   const navigate = useNavigate();
   // const [status, setStatus] = useState('');
 
   const handleSubmit = () => {
-    navigate('/shops');
+    navigate('/shop');
   }
   
   const handleCancel = () => {
-    navigate('/shops');
+    navigate('/shop');
   }
 
   return (
-    <div>
-        <Navbar userRole="shopkeeper"/>
-        <div className='add-shop-page'> 
-        <div className='sp'> 
-        <AddShop/>
+    <div className='create-form-page'>
+      <div className='srf'>
+        <RegistrationForm showRegisterAs 
+        showCNICNumber
+        showCNICPhotos/>
         <div className="button-container">
         <Button label="Submit" 
         onClick={handleSubmit} 
@@ -34,10 +32,9 @@ const AddShopPage = () => {
         type="button" 
         className="reject-button" />
       </div>
-        </div>
-        </div>
+    </div>
     </div>
   )
 }
 
-export default AddShopPage;
+export default RegistrationPage;

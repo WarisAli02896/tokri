@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../Styles/ComponentStylecss/navbar.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ProfileDropdown from './ProfileDropdown';
 import logo from '../../Assets/logopic.png'
 
@@ -49,7 +49,6 @@ const getNavbarMenu = (userRole) => {
         { label: 'Home', link: '/shopkeeper' },
         { label: 'Shop', link: '/shops' },
         { label: 'Product For Sell', link: '/pfs'},
-        { label: 'Product For Rent', link: '/pfr'},
         { label: 'Order', link: '/orders'},
       ];
     default:

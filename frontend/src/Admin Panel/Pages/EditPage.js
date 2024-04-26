@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Components/Atoms/Button';
-import '../Styles/createaccountpage.css';
-import CreateAccountForm from '../Components/Forms/CreateAccountForm';
+import Button from '../../Components/Atoms/Button';
+import EditForm from '../../Components/Forms/EditForm';
+import '../../Styles/PagesStylescss/adminpage/editpage.css';
 
-const CreateAccountPage = () => {
+const EditPage = () => {
   const navigate = useNavigate();
   // const [status, setStatus] = useState('');
 
@@ -18,10 +18,8 @@ const CreateAccountPage = () => {
 
   return (
     <div className='create-form-page'>
-      <div className='srf'>
-        <CreateAccountForm showRegisterAs 
-        showCNICNumber
-        showCNICPhotos/>
+      <div className='edit-form'>
+        <EditForm />
         <div className="button-container">
         <Button label="Accept" 
         onClick={handleAccept} 
@@ -37,4 +35,4 @@ const CreateAccountPage = () => {
   )
 }
 
-export default CreateAccountPage;
+export default EditPage;
